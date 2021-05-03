@@ -257,6 +257,7 @@ const admin = {
         deleteLink({commit}, {link: link}) {
             return AdminService.deleteLink(link)
                 .then((response) => {
+                    commit("deleteLink", {link});
                     return Promise.resolve(response);
                 })
                 .catch((error) => {
@@ -322,8 +323,8 @@ const admin = {
                     return Promise.reject(error);
                 });
         },
-        deleteReport({commit}, {report: report}) {
-            return AdminService.deleteReport(report)
+        deleteReport({commit}, {report: report, remove: remove}) {
+            return AdminService.deleteReport(report, remove)
                 .then((response) => {
                     commit("deleteReport", {report, response});
                     return Promise.resolve(response);
@@ -391,6 +392,9 @@ const admin = {
         },
         deleteReport(state, {report, response}) {
             state.reports.data = state.reports.data.filter(x => x.id !== report);
+        },
+        deleteLink(state, {link}) {
+            state.links.data = state.links.data.filter(x => x.id !== link);
         },
     },
 };

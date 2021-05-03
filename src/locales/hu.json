@@ -183,7 +183,7 @@
     "pages": {
         "home": {
             "new_items": "Népszerű adatlapok",
-            "new_items_of_the_season": "<b>Épp most</b> nézik",
+            "new_items_of_the_season": "<b>PREMIEREK</b>",
             "information": "Információ"
         },
         "contact": {
@@ -369,7 +369,6 @@
         "other": "Egyéb"
     },
     "qualities": {
-        "hd": "HD",
         "dvd": "DVD",
         "tv": "TV",
         "dvd-cinema": "DVD-Mozis hang",

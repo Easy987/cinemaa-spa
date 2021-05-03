@@ -275,8 +275,8 @@ class AdminService {
             return response.data;
         });
     }
-    deleteReport(id) {
-        return API.delete(API_URL + "reports?id=" + id).then((response) => {
+    deleteReport(id, remove) {
+        return API.delete(API_URL + "reports?id=" + id + '&remove=' + remove).then((response) => {
             return response.data;
         });
     }

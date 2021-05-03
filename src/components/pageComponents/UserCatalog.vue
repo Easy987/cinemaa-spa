@@ -12,6 +12,7 @@
 import UserCatalogSection from "@/components/UserCatalogSection";
 import PageTitle from "@/components/PageTitle";
 import UserFilterSection from "@/components/UserFilterSection";
+import {mapGetters} from "vuex";
 
 export default {
     name: "UserCatalog",
@@ -23,6 +24,9 @@ export default {
     },
 
     computed: {
+        ...mapGetters("auth", [
+            "onlineUsers"
+        ]),
         users() {
             return this.$store.getters["auth/users"];
         }
@@ -44,7 +48,7 @@ export default {
     methods: {
         filter(value) {
             this.filters = value;
-            this.getUsers(this.$route.params.page);
+            this.getUsers(1);
         },
         navigation(url) {
             if(url !== null) {
@@ -60,9 +64,23 @@ export default {
                 let payload = {page: page || 1, filters: this.filters};
 
                 this.$store.dispatch('auth/getUsers', payload).then(() => {
+                    this.updateOnlineStatus();
                     this.$emit('loadingUpdated', false);
                 });
             }
+        },
+        updateOnlineStatus() {
+            this.users.data.forEach((user, userI) => {
+                let onlineUser = this.onlineUsers.filter(x => x.id === user.id);
+
+                if(onlineUser.length > 0) {
+                    this.users.data[userI].status = 1;
+                } else {
+                    this.users.data[userI].status = 0;
+                }
+            });
+
+            this.$root.$emit('refresh');
         },
     },
 
@@ -75,9 +93,18 @@ export default {
             },
             immediate: true
         },
+        'onlineUsers': {
+            handler: function() {
+                this.updateOnlineStatus();
+            },
+            immediate: false
+        }
     },
 
     created() {
+        if(this.loggedIn()) {
+            this.$store.dispatch('auth/getOnlineUsers');
+        }
         if((this.users && Object.keys(this.users).length === 0) || this.$route.params.page !== this.users.meta.current_page) {
             this.getUsers(this.$route.params.page);
         }

@@ -15,6 +15,8 @@ import Echo from "laravel-echo";
 import {faFacebookF, faFacebookMessenger, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome'
 import VueMeta from 'vue-meta';
+import "./registerServiceWorker";
+import API from "@/api";
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -49,6 +51,7 @@ Vue.mixin({
     }),
 });
 
+Vue.prototype.$api = API;
 Vue.prototype.$screen = new Vue({
     data: {
         screen: {
@@ -68,7 +71,7 @@ Vue.use(VueMeta, {
     refreshOnceOnNavigation: true
 })
 
-if(store.getters["auth/loggedIn"]) {
+//if(store.getters["auth/loggedIn"]) {
     window.Pusher = require('pusher-js');
     window.Echo = new Echo({
         broadcaster: 'pusher',
@@ -83,11 +86,11 @@ if(store.getters["auth/loggedIn"]) {
         disableStats: true,
         auth: {
             headers: {
-                Authorization: `Bearer ${store.state.auth.user.access_token}`
+                Authorization: 'Bearer ' + (store.getters["auth/loggedIn"] ? store.state.auth.user.access_token : '')
             }
         }
     });
-}
+//}
 
 new Vue({
     router,

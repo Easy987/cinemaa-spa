@@ -51,8 +51,11 @@
                                                 <button type="button" @click="openLink(report.type === 0 ? report.reportable.link : ('https://www.youtube.com/watch?v='+report.reportable.youtube_id))" class="main__table-btn main__table-btn--view ml-2" v-b-popover.hover.bottom="''" title="Link megtekintése">
                                                     <i class="icon ion-ios-open"></i>
                                                 </button>
-                                                <button @click="deleteReport(report.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Bejelentés törlése">
+                                                <button @click="deleteReport(report.id, false)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Bejelentés törlése">
                                                     <i class="icon ion-ios-trash"></i>
+                                                </button>
+                                                <button @click="deleteReport(report.id, true)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link/Előzetes törlése">
+                                                    <i class="icon ion-ios-remove-circle"></i>
                                                 </button>
                                             </div>
                                         </td>
@@ -131,14 +134,25 @@ export default {
                 this.$emit('loadingUpdated', false);
             });
         },
-        deleteReport(id) {
+        deleteReport(id, remove) {
             this.$emit('loadingUpdated', true);
-            this.$store.dispatch('admin/deleteReport', {report: id}).then(() => {
-                this.$store.dispatch('user/sendToast', {
-                        message: 'Bejelentés sikeresen törölve.',
-                        type: 'success'
-                    }
-                );
+            this.$store.dispatch('admin/deleteReport', {report: id, remove: remove}).then(() => {
+                if(remove) {
+                    this.$store.dispatch('user/sendToast', {
+                            message: 'Bejelentés és link/előzetes sikeresen törölve.',
+                            type: 'success'
+                        }
+                    );
+                } else {
+                    this.$store.dispatch('user/sendToast', {
+                            message: 'Bejelentés sikeresen törölve.',
+                            type: 'success'
+                        }
+                    );
+                }
+
+                this.$emit('loadingUpdated', false);
+            }).catch(() => {
                 this.$emit('loadingUpdated', false);
             });
         }

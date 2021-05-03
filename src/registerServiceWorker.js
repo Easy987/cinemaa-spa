@@ -2,7 +2,21 @@
 
 import { register } from "register-service-worker";
 
-if (process.env.NODE_ENV === "production2") {
+function isIos() {
+  return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+      ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+}
+
+
+if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(
@@ -17,16 +31,16 @@ if (process.env.NODE_ENV === "production2") {
       console.log("Content has been cached for offline use.");
     },
     updatefound() {
-      // new content clear cache so user gets the new version
-      caches.keys().then(cacheNames => {
-        cacheNames.forEach(cacheName => {
-          caches.delete(cacheName);
-        });
-      });
       console.log("New content is downloading.");
     },
-    updated() {
+    updated(registration) {
       console.log('New content is available: Please refresh.');
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      if (confirm('Új alkalmazás verzió érhető el. Kérlek frissítsd az oldalt az OK gomb megnyomásával.'))
+      {
+        window.location.reload(true);
+      }
+
     },
     offline() {
       console.log(

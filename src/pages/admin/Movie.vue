@@ -215,102 +215,199 @@
                                             <div class="form__group">
                                                 <label class="form__label">Beküldött linkek</label>
 
-                                                <div v-for="(link, index) in movie.links" v-bind:key="index">
-                                                    <div class="row text-left" :class="{'pt-5' : index !== 0}">
-                                                        <div class="col-2"><label class="form__label">Beküldő</label></div>
-                                                        <div class="col-2"><label class="form__label">Videómegosztó</label></div>
-                                                        <div class="col-2"><label class="form__label">Nyelv tipus</label></div>
-                                                        <div class="col-2"><label class="form__label">Link tipus</label></div>
-                                                        <div class="col-2"><label class="form__label">Státusz</label></div>
-                                                        <div class="col-2"><label class="form__label">Szerkesztés</label></div>
+                                                <div v-if="this.$screen.width > 480">
+                                                    <div v-for="(link, index) in movie.links" v-bind:key="index">
+                                                        <div class="row text-left" :class="{'pt-5' : index !== 0}">
+                                                            <div class="col-2"><label class="form__label">Beküldő</label></div>
+                                                            <div class="col-2"><label class="form__label">Videómegosztó</label></div>
+                                                            <div class="col-2"><label class="form__label">Nyelv tipus</label></div>
+                                                            <div class="col-2"><label class="form__label">Link tipus</label></div>
+                                                            <div class="col-2"><label class="form__label">Státusz</label></div>
+                                                            <div class="col-2"><label class="form__label">Szerkesztés</label></div>
+                                                        </div>
+                                                        <div class="row ">
+                                                            <div class="col-2">
+                                                                <multiselect
+                                                                    v-model="link.user"
+                                                                    :options="moviesInfo.users"
+                                                                    label="username"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :show-labels="true"
+                                                                    :preserve-search="true"
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <multiselect
+                                                                    v-model="link.site"
+                                                                    :options="moviesInfo.sites"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <multiselect
+                                                                    v-model="link.languageType"
+                                                                    :options="moviesInfo.languageTypes"
+                                                                    :custom-label="languageLabel"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <multiselect
+                                                                    v-model="link.linkType"
+                                                                    :options="moviesInfo.linkTypes"
+                                                                    :custom-label="linkLabel"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="statusTypes"></b-form-select>
+                                                            </div>
+                                                            <div class="col d-flex">
+                                                                <button type="button" style="height: 46px;" @click="openLink(link.link)" class="main__table-btn main__table-btn--view" v-b-popover.hover.bottom="''" title="Link megtekintése">
+                                                                    <i class="icon ion-ios-open"></i>
+                                                                </button>
+                                                                <button type="button" style="height: 46px;" @click="deleteLink(movie, link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
+                                                                    <i class="icon ion-ios-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-left">
+                                                            <div class="col-2"><label class="form__label">Évad</label></div>
+                                                            <div class="col-2"><label class="form__label">Epizód</label></div>
+                                                            <div class="col-2"><label class="form__label">Rész</label></div>
+                                                            <div class="col-4"><label class="form__label">Link</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <input type="text" name="email" class="form__input" v-model="link.season">
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="text" name="email" class="form__input" v-model="link.episode">
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="text" name="email" class="form__input" v-model="link.part">
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <input type="text" name="email" class="form__input" v-model="link.link">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="row ">
-                                                        <div class="col-2">
-                                                            <multiselect
-                                                                v-model="link.user"
-                                                                :options="moviesInfo.users"
-                                                                label="username"
-                                                                track-by="id"
-                                                                :placeholder="$t('chat.select')"
-                                                                select-label=""
-                                                                deselect-label=""
-                                                                :show-labels="true"
-                                                                :preserve-search="true"
-                                                                :searchable="true">
-                                                            </multiselect>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <multiselect
-                                                                v-model="link.site"
-                                                                :options="moviesInfo.sites"
-                                                                label="name"
-                                                                track-by="id"
-                                                                :placeholder="$t('chat.select')"
-                                                                select-label=""
-                                                                deselect-label=""
-                                                                :searchable="true">
-                                                            </multiselect>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <multiselect
-                                                                v-model="link.languageType"
-                                                                :options="moviesInfo.languageTypes"
-                                                                :custom-label="languageLabel"
-                                                                label="name"
-                                                                track-by="id"
-                                                                :placeholder="$t('chat.select')"
-                                                                select-label=""
-                                                                deselect-label=""
-                                                                :searchable="true">
-                                                            </multiselect>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <multiselect
-                                                                v-model="link.linkType"
-                                                                :options="moviesInfo.linkTypes"
-                                                                :custom-label="linkLabel"
-                                                                label="name"
-                                                                track-by="id"
-                                                                :placeholder="$t('chat.select')"
-                                                                select-label=""
-                                                                deselect-label=""
-                                                                :searchable="true">
-                                                            </multiselect>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="statusTypes"></b-form-select>
-                                                        </div>
-                                                        <div class="col d-flex">
-                                                            <button type="button" style="height: 46px;" @click="openLink(link.link)" class="main__table-btn main__table-btn--view" v-b-popover.hover.bottom="''" title="Link megtekintése">
-                                                                <i class="icon ion-ios-open"></i>
-                                                            </button>
-                                                            <button type="button" style="height: 46px;" @click="deleteLink(movie, link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
-                                                                <i class="icon ion-ios-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row text-left">
-                                                        <div class="col-2"><label class="form__label">Évad</label></div>
-                                                        <div class="col-2"><label class="form__label">Epizód</label></div>
-                                                        <div class="col-2"><label class="form__label">Rész</label></div>
-                                                        <div class="col-4"><label class="form__label">Link</label></div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-2">
-                                                            <input type="text" name="email" class="form__input" v-model="link.season">
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <input type="text" name="email" class="form__input" v-model="link.episode">
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <input type="text" name="email" class="form__input" v-model="link.part">
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <input type="text" name="email" class="form__input" v-model="link.link">
-                                                        </div>
-                                                    </div>
+                                                    <div v-if="movie.links.length === 0" class="form__title">Nincsenek feltöltött linkek</div>
                                                 </div>
-                                                <div v-if="movie.links.length === 0" class="form__title">Nincsenek feltöltött linkek</div>
+                                                <div v-else>
+                                                    <div v-for="(link, index) in movie.links" v-bind:key="index">
+                                                        <div class="row text-left" :class="{'pt-5' : index !== 0}">
+                                                            <div class="col-6"><label class="form__label">Beküldő</label></div>
+                                                            <div class="col-6">
+                                                                <multiselect
+                                                                    v-model="link.user"
+                                                                    :options="moviesInfo.users"
+                                                                    label="username"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :show-labels="true"
+                                                                    :preserve-search="true"
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Videómegosztó</label></div>
+                                                            <div class="col-6">
+                                                                <multiselect
+                                                                    v-model="link.site"
+                                                                    :options="moviesInfo.sites"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Nyelv tipus</label></div>
+                                                            <div class="col-6">
+                                                                <multiselect
+                                                                    v-model="link.languageType"
+                                                                    :options="moviesInfo.languageTypes"
+                                                                    :custom-label="languageLabel"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Link tipus</label></div>
+                                                            <div class="col-6">
+                                                                <multiselect
+                                                                    v-model="link.linkType"
+                                                                    :options="moviesInfo.linkTypes"
+                                                                    :custom-label="linkLabel"
+                                                                    label="name"
+                                                                    track-by="id"
+                                                                    :placeholder="$t('chat.select')"
+                                                                    select-label=""
+                                                                    deselect-label=""
+                                                                    :searchable="true">
+                                                                </multiselect>
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Státusz</label></div>
+                                                            <div class="col-6">
+                                                                <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="statusTypes"></b-form-select>
+                                                            </div>
+
+                                                            <div class="col-6"><label class="form__label">Évad</label></div>
+                                                            <div class="col-6">
+                                                                <input type="text" name="email" class="form__input mb-0" v-model="link.season">
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Epizód</label></div>
+                                                            <div class="col-6">
+                                                                <input type="text" name="email" class="form__input mb-0" v-model="link.episode">
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Rész</label></div>
+                                                            <div class="col-6">
+                                                                <input type="text" name="email" class="form__input mb-0" v-model="link.part">
+                                                            </div>
+                                                            <div class="col-6"><label class="form__label">Link</label></div>
+                                                            <div class="col-6">
+                                                                <input type="text" name="email" class="form__input mb-0" v-model="link.link">
+                                                            </div>
+
+                                                            <div class="col-6"><label class="form__label">Szerkesztés</label></div>
+                                                            <div class="col-6 d-flex">
+                                                                <button type="button" style="height: 46px;" @click="openLink(link.link)" class="main__table-btn main__table-btn--view" v-b-popover.hover.bottom="''" title="Link megtekintése">
+                                                                    <i class="icon ion-ios-open"></i>
+                                                                </button>
+                                                                <button type="button" style="height: 46px;" @click="deleteLink(movie, link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
+                                                                    <i class="icon ion-ios-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="movie.links.length === 0" class="form__title">Nincsenek feltöltött linkek</div>
+                                                </div>
+
                                             </div>
                                         </div>
 

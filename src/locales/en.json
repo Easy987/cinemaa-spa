@@ -178,7 +178,7 @@
     "pages": {
         "home": {
             "new_items": "New items",
-            "new_items_of_the_season": "<b>NEW ITEMS</b> of the season",
+            "new_items_of_the_season": "<b>PREMIERS</b>",
             "information": "Information"
         },
         "contact": {
@@ -361,7 +361,6 @@
         "other": "Other"
     },
     "qualities": {
-        "hd": "HD",
         "dvd": "DVD",
         "tv": "TV",
         "dvd-cinema": "DVD-Cinema Sound",

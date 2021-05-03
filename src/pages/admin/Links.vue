@@ -38,6 +38,7 @@
                                 <table class="main__table">
                                 <thead>
                                 <tr>
+                                    <th>KIJELÖLÉS</th>
                                     <th>ID</th>
                                     <th>ADATLAP</th>
                                     <th>VIDEÓMEGOSZTÓ</th>
@@ -53,6 +54,11 @@
 
                                 <tbody>
                                     <tr v-for="(link, index) in links.data" v-bind:key="index">
+                                        <td>
+                                            <div class="main__table-text">
+                                                <b-checkbox v-model="link.selected" @input="linkChecked($event, link.id)"></b-checkbox>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="main__table-text" v-b-popover.hover.bottom="''" :title="link.id">X</div>
                                         </td>
@@ -112,6 +118,10 @@
                     </div>
                     <!-- end links -->
 
+                    <div v-if="selectedLinks.filter(x => x.value === true).length > 0">
+                        <button @click="deleteLinks()" class="btn btn-secondary ml-3">Linkek törlése</button>
+                    </div>
+
                     <!-- paginator -->
                     <div class="col-12">
                         <div class="paginator-wrap">
@@ -156,7 +166,8 @@ export default {
                 { value: 1, text: 'Nyilvános' },
                 { value: 2, text: 'Rejtett' },
                 { value: 3, text: 'Rendszer által kiszűrt' },
-            ]
+            ],
+            selectedLinks: []
         };
     },
 
@@ -167,6 +178,33 @@ export default {
     },
 
     methods: {
+        deleteLinks(){
+            this.$emit('loadingUpdated', true);
+            this.$api.delete('/admin/linksMultiple?ids=' + JSON.stringify(this.selectedLinks)).then(() => {
+                this.links.data = this.links.data.filter(x => !this.selectedLinks.find(y => y.id === x.id));
+                this.links.data.forEach((link) => {
+                    link.selected = false;
+                });
+
+                this.$store.dispatch('user/sendToast', {
+                        message: 'Linkek sikeresen törölve.',
+                        type: 'success'
+                    }
+                );
+
+                this.$emit('loadingUpdated', false);
+            }).catch(() => {
+                this.$emit('loadingUpdated', false);
+            });
+        },
+        linkChecked(event, id) {
+            if(this.selectedLinks.filter(x => x.id === id).length > 0) {
+                const exist = this.selectedLinks.find(x => x.id === id);
+                exist.value = event;
+            } else {
+                this.selectedLinks.push({id: id, value: event});
+            }
+        },
         getLinkStatus(status) {
             switch(status){
                 case '0':

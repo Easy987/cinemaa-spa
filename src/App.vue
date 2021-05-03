@@ -95,6 +95,7 @@ import store from "@/store";
 import router from "@/router";
 import {mapGetters} from "vuex";
 import BackToTop from "@/components/pageComponents/BackToTop";
+import Echo from "laravel-echo";
 
 export default {
     name: "App",
@@ -167,6 +168,27 @@ export default {
                 this.unreadRequests = res.requests;
             });
 
+        }
+
+        if(!window.Echo) {
+            window.Pusher = require('pusher-js');
+            window.Echo = new Echo({
+                broadcaster: 'pusher',
+                key: process.env.VUE_APP_WS_APP_KEY,
+                cluster: process.env.VUE_APP_WS_CLUSTER,
+                encrypted: true,
+                forceTLS: process.env.VUE_APP_MODE === 'prod',
+                wsHost: window.location.hostname,
+                wsPort: 6001,
+                authEndpoint: process.env.VUE_APP_WS_URL,
+                enabledTransports: ['ws', 'wss'],
+                disableStats: true,
+                auth: {
+                    headers: {
+                        Authorization: 'Bearer ' + (store.getters["auth/loggedIn"] ? store.state.auth.user.access_token : '')
+                    }
+                }
+            });
         }
     },
 

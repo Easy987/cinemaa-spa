@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <PageTitle :title="$t('nav.requests')"></PageTitle>
-        <div v-if="loggedIn() && user().role === 'owner'">
+        <div v-if="loggedIn()">
             <b-modal id="requestModal" footer-bg-variant="dark" header-bg-variant="dark" header-text-variant="white" header-border-variant="0" footer-border-variant="0" footer-text-variant="white" body-text-variant="white" body-bg-variant="dark" :title="$t('base.see_description')">
                 <div>
                     <div class="col-12" v-if="!uploadingRequest">

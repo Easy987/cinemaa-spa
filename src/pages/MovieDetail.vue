@@ -84,7 +84,7 @@
 
                     <!-- player -->
                     <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}" v-if="movie.videos.length">
-                        <youtube :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
+                        <youtube v-if="false" :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
                         <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=768820493841395" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
@@ -254,7 +254,7 @@
                             </div>
 
                             <div :class="{ 'fade': true, 'show': this.selectedPage === 1, 'active': this.selectedPage === 1 }">
-                                <div v-show="selectedPage === 1" class="gallery" itemscope>
+                                <div v-show="selectedPage === 1" v-if="false" class="gallery" itemscope>
                                     <div class="row">
                                         <!-- gallery item -->
                                         <figure v-for="(image, imageIndex) in movie.photos" v-bind:key="imageIndex" @click="index = imageIndex" class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>

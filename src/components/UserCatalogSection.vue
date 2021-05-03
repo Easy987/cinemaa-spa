@@ -123,40 +123,12 @@ export default {
     },
 
     created() {
-        if(this.loggedIn()) {
-            this.$store.dispatch('auth/getOnlineUsers');
-        }
-    },
-
-    computed: {
-        ...mapGetters("auth", [
-            "onlineUsers"
-        ])
-    },
-
-    watch: {
-        'onlineUsers': {
-            handler: function() {
-                this.updateOnlineStatus();
-            },
-            immediate: false
-        }
+        this.$root.$on('refresh', () => {
+            this.$forceUpdate();
+        });
     },
 
     methods: {
-        updateOnlineStatus() {
-            this.users.data.forEach((user, userI) => {
-                let onlineUser = this.onlineUsers.filter(x => x.id === user.id);
-
-                if(onlineUser.length > 0) {
-                    this.users.data[userI].status = 1;
-                } else {
-                    this.users.data[userI].status = 0;
-                }
-            });
-
-            this.$forceUpdate();
-        },
         navigation(url) {
             this.$emit('navigation', url);
         },
