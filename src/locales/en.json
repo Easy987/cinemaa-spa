@@ -315,7 +315,10 @@
         "youtube_mismatch": "The youtube link is wrong.",
         "thanks_for_uploading": "Thanks for uploading!",
         "fill_all_fields": "You must fill every field!",
-        "function_not_available": "The requested function isnt available right know."
+        "function_not_available": "The requested function isnt available right know.",
+        "thanks_for_requesting": "Thank you for sending the request",
+        "request_deleted": "Request deleted successfully.",
+        "link_exists": "The submitted link already exists in our database!"
     },
     "roles": {
         "user": "User",

@@ -427,6 +427,14 @@ export default {
             }).catch((error) => {
                 const statusCode = error.response.status;
 
+                if(statusCode === 306) {
+                    this.$store.dispatch('user/sendToast', {
+                        message: this.$t('messages.link_exists'),
+                        type: 'error'
+                    });
+                    this.$emit('loadingUpdated', false);
+                }
+
                 if(statusCode === 300) {
                     this.$store.dispatch('user/sendToast', {
                         message: this.$t('messages.link_mismatch'),

@@ -167,6 +167,16 @@ const admin = {
                     return Promise.reject(error);
                 });
         },
+        getPremierMovies({commit}, {page, filter}) {
+            return AdminService.getMovies(page, filter)
+                .then((response) => {
+                    commit("setMovies", response);
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
         blockMovie({commit}, {movie: movie}) {
             return AdminService.blockMovie(movie)
                 .then((response) => {

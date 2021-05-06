@@ -44,19 +44,19 @@
                                 <div class="col-12 col-sm-12 col-lg-6 col-xl-7">
                                     <div class="card__content">
                                         <ul class="card__meta">
-                                            <li>
+                                            <li v-if="movie.writers.length > 0">
                                                 <span>{{ $t('base.writer') }}:</span>
                                                 <a v-for="(writer, index) in movie.writers" v-bind:key="index">{{ writer.key }}</a>
                                             </li>
-                                            <li>
+                                            <li v-if="movie.directors.length > 0">
                                                 <span>{{ $t('base.director') }}:</span>
                                                 <a v-for="(director, index) in movie.directors" v-bind:key="index">{{ director.key }}</a>
                                             </li>
-                                            <li>
+                                            <li v-if="movie.actors.length > 0">
                                                 <span>{{ $t('base.cast') }}:</span>
                                                 <a v-for="(actor, index) in movie.actors" v-bind:key="index">{{ actor.key }}</a>
                                             </li>
-                                            <li>
+                                            <li v-if="movie.genres.length > 0">
                                                 <span>{{ $t('base.genre') }}:</span>
                                                 <a v-for="(genre, index) in movie.genres" v-bind:key="index">{{ $t('genres.' + genre.key) }}</a>
                                             </li>
@@ -84,7 +84,7 @@
 
                     <!-- player -->
                     <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}" v-if="movie.videos.length">
-                        <youtube v-if="false" :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
+                        <youtube :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
                         <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=768820493841395" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
@@ -355,7 +355,7 @@ export default {
         },
         facebookShareURL() {
             let link = window.location.href;
-            link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year;
+            link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.$route.params.length;
             return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=173051317389993&width=100&height=28";
         },
         metaInfo() {
@@ -488,7 +488,7 @@ export default {
         },
         fetchMovie() {
             this.$emit('loadingUpdated', true);
-            this.$store.dispatch('movie/getMovie', {slug: this.$route.params.slug, year: this.$route.params.year}).then((response) => {
+            this.$store.dispatch('movie/getMovie', {slug: this.$route.params.slug, year: this.$route.params.year, length: this.$route.params.length}).then((response) => {
                 this.movie = response.data;
                 this.$emit('loadingUpdated', false);
             });
@@ -611,6 +611,18 @@ export default {
                             type: 'error'
                         });
                         this.$emit('loadingUpdated', false);
+
+                        return;
+                    }
+
+                    if(statusCode === 301) {
+                        this.$store.dispatch('user/sendToast', {
+                            message: this.$t('messages.link_exists'),
+                            type: 'error'
+                        });
+                        this.$emit('loadingUpdated', false);
+
+                        return;
                     }
 
                     this.$emit('loadingUpdated', false);

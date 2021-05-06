@@ -44,8 +44,8 @@ class MovieService {
                 return response.data;
             });
     }
-    getMovie(slug, year) {
-        return API.get(API_URL + 'movie/' + slug + '/' + year).then((response) => {
+    getMovie(slug, year, length) {
+        return API.get(API_URL + 'movie/' + slug + '/' + year + '/' + length).then((response) => {
             return response.data;
         });
     }

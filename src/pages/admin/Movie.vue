@@ -22,12 +22,19 @@
                                             <h4 class="form__title">Adatok szerkesztése</h4>
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-12 col-xl-12 pb-3">
+                                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 pb-3">
                                             <div class="form__group">
                                                 <label class="form__label">Premier</label>
                                                 <b-form-checkbox size="lg" v-model="movie.is_premier" name="check-button" switch>
                                                     <b style="color: white;">{{ movie.is_premier ? $t('base.enabled') : $t('base.disabled') }}</b>
                                                 </b-form-checkbox>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 pb-3">
+                                            <div class="form__group">
+                                                <label class="form__label">Adatlap befrissítése</label>
+                                                <button type="button" @click="refreshMovie" class="form__btn">Frissítés</button>
                                             </div>
                                         </div>
 
@@ -208,6 +215,7 @@
                                                     </button>
                                                 </div>
                                                 <div v-if="movie.videos.length === 0" class="form__title">Nincsenek feltöltött videók</div>
+                                                <div><button class="form__btn" type="button" @click="addVideo">Hozzáadás</button></div>
                                             </div>
                                         </div>
 
@@ -475,6 +483,22 @@ export default {
     },
 
     methods: {
+        addVideo() {
+            this.movie.videos.push({});
+        },
+        refreshMovie() {
+            this.$emit('loadingUpdated', true);
+            this.$api.post('admin/movies/refresh', {id: this.$route.params.id }).then((res) => {
+                this.movie = res.data.data;
+
+                this.$store.dispatch('user/sendToast', {
+                        message: 'Adatlap sikeresen frissítve.',
+                        type: 'success'
+                    }
+                );
+                this.$emit('loadingUpdated', false);
+            });
+        },
         getMovie() {
             this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/getMovie', {id: this.$route.params.id}).then((res) => {
@@ -491,6 +515,7 @@ export default {
                 '_blank');
         },
         deleteVideo(movie, id) {
+            this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/deleteVideo', {movie_id: movie.id, id: id}).then((res) => {
                 this.movie.videos = this.movie.videos.filter(x => x.youtube_id !== id);
 
@@ -503,6 +528,7 @@ export default {
             });
         },
         deleteLink(movie, id) {
+            this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/deleteLink', {movie_id: movie.id, link: id}).then((res) => {
                 this.movie.links = this.movie.links.filter(x => x.id !== id);
 

@@ -12,6 +12,20 @@
                             <span class="main__title-stat">{{ movies.meta.total }} összesen</span>
 
                             <div class="main__title-wrap">
+                                <div class="filter" id="filter__sort">
+                                    <span class="filter__item-label">Premier:</span>
+
+
+                                    <b-form-checkbox @change="searchMovie" v-model="filter.premiers"></b-form-checkbox>
+                                </div>
+
+                                    <div class="filter" id="filter__sort">
+                                        <span class="filter__item-label">Link nélküli:</span>
+
+
+                                        <b-form-checkbox @change="searchMovie" v-model="filter.empty_links"></b-form-checkbox>
+                                    </div>
+
                                     <div class="filter" id="filter__sort">
                                         <span class="filter__item-label">Státusz:</span>
 
@@ -58,7 +72,7 @@
                                             <div class="main__table-text" v-b-popover.hover.bottom="''" :title="movie.id">X</div>
                                         </td>
                                         <td>
-                                            <div class="main__table-text"><router-link target="_blank" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year} }">{{ movie.titles['hu'] }}</router-link></div>
+                                            <div class="main__table-text"><router-link target="_blank" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }">{{ movie.titles['hu'] }}</router-link></div>
                                         </td>
                                         <td>
                                             <div class="main__table-text">{{ movie.year }}</div>
@@ -144,7 +158,9 @@ export default {
         return {
             filter: {
                 name: '',
-                status: -1
+                status: -1,
+                empty_links: false,
+                premiers: false,
             },
             statusTypes: [
                 { value: -1, text: 'Összes' },

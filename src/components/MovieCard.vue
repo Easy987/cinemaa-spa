@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card__cover" :class="{'watched': movie.watched_by_user}">
                 <img :src="movie.poster" alt=""/>
-                <router-link class="card__play" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year} }"><i class="icon ion-ios-play"></i></router-link>
+                <router-link class="card__play" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }"><i class="icon ion-ios-play"></i></router-link>
                 <div class="movie-detail movie-detail-title">
                     <div class="w-100">{{ $t('base.year') }}: {{ movie.year }}</div>
                     <div class="w-100">{{ $t('base.running_time') }}: {{ movie.length }} {{ $t('base.min') }}</div>
@@ -25,7 +25,7 @@
             </div>
             <div class="card__content">
                 <h3 class="card__title text-center">
-                    <router-link :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year} }">{{ movie.titles[$i18n.locale] }}</router-link>
+                    <router-link :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }">{{ movie.titles[$i18n.locale] }}</router-link>
                 </h3>
                 <span class="card__category">
                     <a v-for="(genre, index) in movie.genres" v-bind:key="index">{{ $t('genres.' + genre.key) }}</a>

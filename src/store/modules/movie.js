@@ -167,8 +167,8 @@ const movie = {
                 });
             });
         },
-        getMovie({commit}, {slug, year}) {
-            return MovieService.getMovie(slug, year).then(
+        getMovie({commit}, {slug, year, length}) {
+            return MovieService.getMovie(slug, year, length).then(
                 (response) => {
                     commit("setMovie", response);
                     return Promise.resolve(response);

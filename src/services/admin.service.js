@@ -130,6 +130,10 @@ class AdminService {
                     params.append(key, JSON.stringify(item));
                 } else if(key === 'status' && item !== -1) {
                     params.append(key, JSON.stringify(item));
+                } else if(key === 'empty_links' && item !== false) {
+                    params.append(key, JSON.stringify(item));
+                } else if(key === 'premiers' && item !== false) {
+                    params.append(key, JSON.stringify(item));
                 }
             });
         }

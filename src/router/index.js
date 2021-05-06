@@ -39,10 +39,10 @@ const routes = [
     },
 
     {
-        path: "/:lang(movie|film)/:slug/:year", name: "movie", component: () => import(/* webpackChunkName: "movie" */ "@/pages/MovieDetail"), meta: {auth: false}
+        path: "/:lang(movie|film)/:slug/:year/:length", name: "movie", component: () => import(/* webpackChunkName: "movie" */ "@/pages/MovieDetail"), meta: {auth: false}
     },
     {
-        path: "/:lang(serie|sorozat)/:slug/:year", name: "serie", component: () => import(/* webpackChunkName: "serie" */ "@/pages/MovieDetail"), meta: {auth: false}
+        path: "/:lang(serie|sorozat)/:slug/:year/:length", name: "serie", component: () => import(/* webpackChunkName: "serie" */ "@/pages/MovieDetail"), meta: {auth: false}
     },
 
     {

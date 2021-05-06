@@ -323,7 +323,8 @@
         "fill_all_fields": "Minden mező kitöltése kötelező!",
         "function_not_available": "A kért funkció jelenleg nem elérhető, viszont hamarosan aktiválásra kerül.",
         "thanks_for_requesting": "Köszönjük a kérés beküldését!",
-        "request_deleted": "Kérés sikeresen törölve!"
+        "request_deleted": "Kérés sikeresen törölve!",
+        "link_exists": "A beküldött link már szerepel az adatbázisban!"
     },
     "roles": {
         "user": "Felhasználó",
