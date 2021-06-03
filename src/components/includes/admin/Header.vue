@@ -16,6 +16,7 @@
                     <b-dropdown-item :to="{ name: 'admin-reports'}" v-if="hasPermission('admin.reports.index')" exact exact-active-class="active">Bejelentések</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'admin-users'}" v-if="hasPermission('admin.users.index')" exact exact-active-class="active">Felhasználók</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'admin-comments'}" v-if="hasPermission('admin.comments.index')" exact exact-active-class="active">Kommentek</b-dropdown-item>
+                    <b-dropdown-item :to="{ name: 'admin-forums'}" v-if="hasPermission('admin.forums.index')" exact exact-active-class="active">Fórumok</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'admin-sites'}" v-if="hasPermission('admin.sites.index')" exact exact-active-class="active">Stream oldalak</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'home', params: {admin: '123'}}" exact exact-active-class="active">Vissza az oldalra</b-dropdown-item>
                 </b-dropdown>
@@ -93,6 +94,12 @@
                     <li v-if="this.hasPermission('admin.comments.index')" class="sidebar__nav-item">
                         <router-link :to="{ name: 'admin-comments' }" class="sidebar__nav-link" exact-active-class="sidebar__nav-link--active">
                             <i class="icon ion-ios-chatbubbles"></i> <span>Kommentek</span>
+                        </router-link>
+                    </li>
+
+                    <li v-if="this.hasPermission('admin.forums.index')" class="sidebar__nav-item">
+                        <router-link :to="{ name: 'admin-forums' }" class="sidebar__nav-link" exact-active-class="sidebar__nav-link--active">
+                            <i class="icon ion-ios-albums"></i> <span>Fórumok</span>
                         </router-link>
                     </li>
 

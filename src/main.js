@@ -15,7 +15,7 @@ import Echo from "laravel-echo";
 import {faFacebookF, faFacebookMessenger, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome'
 import VueMeta from 'vue-meta';
-import "./registerServiceWorker";
+//import "./registerServiceWorker";
 import API from "@/api";
 
 Vue.use(BootstrapVue);
@@ -37,6 +37,14 @@ library.add(faInstagram);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
+
+import Ads from 'vue-google-adsense'
+
+Vue.use(require('vue-script2'))
+
+Vue.use(Ads.Adsense)
+Vue.use(Ads.InArticleAdsense)
+Vue.use(Ads.InFeedAdsense)
 
 Vue.config.productionTip = false;
 

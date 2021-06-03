@@ -114,7 +114,7 @@
                     <!-- paginator -->
                     <div class="col-12">
                         <div class="paginator-wrap">
-                            <navigator @navigation="navigation" :items="users" not-found-text="Nem található felhasználó"></navigator>
+                            <navigator v-if="users" @navigation="navigation" :items="users" not-found-text="Nem található felhasználó"></navigator>
                         </div>
                     </div>
                     <!-- end paginator -->
@@ -231,6 +231,8 @@ export default {
                         type: 'success'
                     }
                 );
+
+                this.getUsers(this.$route.params.page, this.filters);
             });
         }
     },

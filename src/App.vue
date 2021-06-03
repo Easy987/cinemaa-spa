@@ -29,22 +29,29 @@
           </div>
           <router-view :key="$route.fullPath" @loadingUpdated="loadingUpdated"/>
       </div>
+      <footer>
+          <cookie-law theme="cinemaa" :buttonText="$t('base.ok')">
+              <div slot="message">
+                  {{ $t('base.cookie_info') }}
+              </div>
+          </cookie-law>
+      </footer>
   </div>
 </template>
 
-<style scoped>
+<style>
     @media (max-width: 768px) {
         .chat-button {
             color: orange;
             position: fixed;
-            left: 1em;
+            right: 3em;
             bottom: 2em;
             z-index: 50;
         }
         .request-button {
             color: orange;
             position: fixed;
-            left: 5em;
+            right: 7em;
             bottom: 2em;
             z-index: 50;
         }
@@ -85,6 +92,23 @@
         font-weight:bold;
     }
 
+    .Cookie--cinemaa {
+        background-color: #1a191f;
+        color: #fff;
+        padding: 1.250em;
+    }
+    .Cookie--cinemaa .Cookie__button {
+        background: #f77f00;
+        padding: 0.625em 3.125em;
+        color: #fff;
+        border-radius: 0;
+        border: 0;
+        font-size: 1em;
+    }
+    .Cookie--cinemaa .Cookie__button:hover {
+        background: #fff !important;
+    }
+
 </style>
 
 <script>
@@ -96,13 +120,15 @@ import router from "@/router";
 import {mapGetters} from "vuex";
 import BackToTop from "@/components/pageComponents/BackToTop";
 import Echo from "laravel-echo";
+import CookieLaw from 'vue-cookie-law'
 
 export default {
     name: "App",
 
     components: {
         Loading,
-        BackToTop
+        BackToTop,
+        CookieLaw
     },
 
     computed: {

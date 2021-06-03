@@ -138,6 +138,9 @@ export default {
                         type: 'success'
                     }
                 );
+
+                this.getComments(this.$route.params.page, this.filters);
+
                 this.$emit('loadingUpdated', false);
             });
         }

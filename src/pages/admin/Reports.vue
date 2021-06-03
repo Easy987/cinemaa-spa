@@ -35,7 +35,7 @@
                                             <div class="main__table-text" v-b-popover.hover.bottom="''" :title="report.id">X</div>
                                         </td>
                                         <td>
-                                            <div class="main__table-text"><router-link target="_blank" :to="{ name: report.movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (report.movie.type === 0 ? 'movie' : 'serie')), slug: report.movie.slugs[$i18n.locale], year: report.movie.year, length: movie.length} }">{{ report.movie.titles['hu'] }}</router-link></div>
+                                            <div class="main__table-text"><router-link target="_blank" :to="{ name: report.movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (report.movie.type === 0 ? 'movie' : 'serie')), slug: report.movie.slugs[$i18n.locale], year: report.movie.year, length: report.movie.length} }">{{ report.movie.titles['hu'] }}</router-link></div>
                                         </td>
                                         <td>
                                             <div class="main__table-text">{{ report.type === 0 ? 'Link' : 'Előzetes' }}</div>
@@ -150,6 +150,8 @@ export default {
                         }
                     );
                 }
+
+                this.getReports(this.$route.params.page, this.filters);
 
                 this.$emit('loadingUpdated', false);
             }).catch(() => {

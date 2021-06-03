@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="movie-detail-buttons">
-                    <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.mark_to_be_watched') : $t('base.need_login')" @click="watchedMovie"><img style="width: 32px;" src="/img/watched.png" alt=""></button>
+                    <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.mark_watched') : $t('base.need_login')" @click="watchedMovie"><img style="width: 32px;" src="/img/watched.png" alt=""></button>
                 </div>
                 <div class="movie-detail-heart" v-if="type === 'favourites' || type === 'toBeWatcheds'">
                     <button @click="type === 'favourites' ? favouriteMovie() : toBeWatchedMovie()"><font-awesome-icon icon="times" size="2x" /></button>

@@ -129,13 +129,15 @@ export default {
         acceptPreliminary(preliminary) {
             this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/acceptPreliminary', {preliminary: preliminary}).then((res) => {
-                this.$emit('loadingUpdated', false);
-
                 this.$store.dispatch('user/sendToast', {
                         message: 'Előzetes sikeresen elfogadva.',
                         type: 'success'
                     }
                 );
+
+                this.getPreliminaries(this.$route.params.page, this.filters);
+
+                this.$emit('loadingUpdated', false);
             });
         },
         deletePreliminary(id) {
@@ -146,6 +148,8 @@ export default {
                         type: 'success'
                     }
                 );
+                this.getPreliminaries(this.$route.params.page, this.filters);
+
                 this.$emit('loadingUpdated', false);
             });
         }

@@ -45,7 +45,7 @@
                                         <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                             <div class="form__group">
                                                 <label class="form__label" for="username">{{ $t('auth.username') }}</label>
-                                                <input id="username" disabled type="text" name="username" class="form__input" :value="user.username">
+                                                <input id="username" :disabled="currentUser.role !== 'owner'" type="text" name="username" class="form__input" v-model="user.username">
                                             </div>
                                         </div>
 
@@ -74,6 +74,13 @@
                                             <div class="form__group">
                                                 <label class="form__label" for="email">{{ $t('base.role') }}</label>
                                                 <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="user.role" :options="roleOptions"></b-form-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                            <div class="form__group">
+                                                <label class="form__label" for="email">Státusz</label>
+                                                <b-form-select :disabled="currentUser.role !== 'owner'"  style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="user.status" :options="userStatusOptions"></b-form-select>
                                             </div>
                                         </div>
 
@@ -166,6 +173,11 @@ export default {
             genderOptions: [
                 { value: 0, text: this.$t('base.male') },
                 { value: 1, text: this.$t('base.female') },
+            ],
+            userStatusOptions: [
+                { value: 0, text: 'Megerősítésre vár' },
+                { value: 1, text: 'Engedélyezve' },
+                { value: 2, text: 'Kitiltva' },
             ],
             roleOptions: [
                 { value: 'user', text: this.$t('roles.user')},

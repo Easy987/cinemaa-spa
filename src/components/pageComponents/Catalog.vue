@@ -28,7 +28,21 @@
                 </div>
             </div>
         </section>
+        <Adsense
+            class="text-center pt-3 pb-3"
+            data-ad-client="ca-pub-3890640160453569"
+            data-ad-slot="2375609994"
+            data-ad-format="auto"
+            data-full-width-responsive="true">
+        </Adsense>
         <CatalogSection @refresh="refresh" :type="this.type" :movies="this.movies" :genres="this.getStaticOptions('genres')" :qualities="this.getStaticOptions('qualities')" @navigation="navigation"></CatalogSection>
+        <Adsense
+            class="text-center pt-3 pb-3"
+            data-ad-client="ca-pub-3890640160453569"
+            data-ad-slot="9059882935"
+            data-ad-format="auto"
+            data-full-width-responsive="true">
+        </Adsense>
         <Footer></Footer>
     </div>
 </template>

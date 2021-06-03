@@ -8,6 +8,7 @@ const general = {
         messageBoard: [],
         users: [],
         requests: [],
+        leaderboard: [],
     },
     getters: {
         messageBoard: (state) => {
@@ -21,6 +22,9 @@ const general = {
         },
         requests: (state) => {
             return state.requests;
+        },
+        leaderboard: (state) => {
+            return state.leaderboard;
         },
     },
     actions: {
@@ -39,6 +43,16 @@ const general = {
         },
         sendMessageBoard({commit}, {message}) {
             return GeneralService.sendMessageBoard(message)
+                .then((response) => {
+                    commit("setMessageBoard", response.data);
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
+        deleteMessageBoardMessage({commit}, {id}) {
+            return GeneralService.deleteMessageBoardMessage(id)
                 .then((response) => {
                     commit("setMessageBoard", response.data);
                     return Promise.resolve(response);
@@ -185,10 +199,23 @@ const general = {
                     return Promise.reject(error);
                 });
         },
+        getLeaderboard({commit}) {
+            return GeneralService.getLeaderboard()
+                .then((response) => {
+                    commit("setLeaderboard", response);
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
     },
     mutations: {
         setMessageBoard(state, messageBoard) {
             state.messageBoard = messageBoard;
+        },
+        setLeaderboard(state, leaderboard) {
+            state.leaderboard = leaderboard;
         },
         addMessageToMessageBoard(state, message) {
             state.messageBoard.unshift(message);

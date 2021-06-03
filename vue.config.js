@@ -4,6 +4,11 @@ const MomentLocalesPlugin = require("moment-locales-webpack-plugin"); // for mom
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 module.exports = {
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true
+    }
+  },
   publicPath: "/",
   runtimeCompiler: true,
   productionSourceMap: process.env.NODE_ENV !== "production",

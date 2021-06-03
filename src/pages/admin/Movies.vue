@@ -247,6 +247,8 @@ export default {
                         type: 'success'
                     }
                 );
+
+                this.getMovies(this.$route.params.page, this.filters);
             });
         }
     },

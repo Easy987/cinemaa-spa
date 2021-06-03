@@ -45,6 +45,12 @@ class MovieService {
             });
     }
     getMovie(slug, year, length) {
+        if(length === undefined) {
+            return API.get(API_URL + 'movie/' + slug + '/' + year).then((response) => {
+                return response.data;
+            });
+        }
+
         return API.get(API_URL + 'movie/' + slug + '/' + year + '/' + length).then((response) => {
             return response.data;
         });

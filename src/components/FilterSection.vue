@@ -262,7 +262,7 @@ export default {
 .scroll-area {
     position: relative;
     margin: auto;
-    height: 150px;
+    max-height: 300px;
 }
 
 .active a {

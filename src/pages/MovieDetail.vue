@@ -5,6 +5,15 @@
         <section class="section section--details section--bg" data-bg="/img/section/section.jpg">
             <!-- details content -->
             <div class="container" v-if="movie">
+                <!-- DONE -->
+                <Adsense
+                    v-if="this.$screen.width <= 480"
+                    class="text-center pb-3"
+                    data-ad-client="ca-pub-3890640160453569"
+                    data-ad-slot="6132167382"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                </Adsense>
                 <div class="row">
                     <!-- title -->
                     <div class="col-12 pr-0" :class="{'d-flex': this.$screen.width <= 480, 'flex-column': this.$screen.width <= 480, 'd-inline-flex': this.$screen.width > 480}">
@@ -85,6 +94,14 @@
                     <!-- player -->
                     <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}" v-if="movie.videos.length">
                         <youtube :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
+                        <Adsense
+                            v-if="false"
+                            class="text-center pt-3"
+                            data-ad-client="ca-pub-3890640160453569"
+                            data-ad-slot="3398995167"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true">
+                        </Adsense>
                         <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=768820493841395" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
@@ -108,6 +125,14 @@
 
                             <a v-if="movie" target="_blank" :href="this.forrasUrl + '/' + (this.loggedIn() ? this.user().secret_uuid : 'filmforras') + '/' + $i18n.locale + '/' + this.movie.id + '/'"><h4 class="content__title text-center" style="font-size: 25px;border: 3px solid orange;padding: 5px;"><b>{{$t('base.view_submitted_links')}}</b></h4></a>
                             <button @click="showSubmitLink" v-if="movie && loggedIn()" class="m-auto w-100 text-center"><h4 class="content__title text-center" style="font-size: 25px;"><b>{{$t('base.submit_link')}}</b></h4></button>
+                            <Adsense
+                                class="text-center pt-3"
+                                style="height:50px;"
+                                data-ad-client="ca-pub-3890640160453569"
+                                data-ad-slot="3176182629"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true">
+                            </Adsense>
                             <!-- content title -->
                             <!-- end content title -->
 
@@ -207,6 +232,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8 col-xl-8" v-if="movie">
+                        <!-- DONE -->
+                        <Adsense
+                            v-if="this.$screen.width > 480"
+                            class="text-center pb-5"
+                            data-ad-client="ca-pub-3890640160453569"
+                            data-ad-slot="5275269330"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true">
+                        </Adsense>
                         <!-- content tabs -->
                         <div class="tab-content">
                             <div :class="{ 'fade': true, 'show': this.selectedPage === 0, 'active': this.selectedPage === 0 }">
@@ -254,7 +288,7 @@
                             </div>
 
                             <div :class="{ 'fade': true, 'show': this.selectedPage === 1, 'active': this.selectedPage === 1 }">
-                                <div v-show="selectedPage === 1" v-if="false" class="gallery" itemscope>
+                                <div v-show="selectedPage === 1" class="gallery" itemscope>
                                     <div class="row">
                                         <!-- gallery item -->
                                         <figure v-for="(image, imageIndex) in movie.photos" v-bind:key="imageIndex" @click="index = imageIndex" class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
@@ -280,6 +314,14 @@
 
                     <!-- sidebar -->
                     <div class="col-12 col-lg-4 col-xl-4">
+                        <!-- DONE -->
+                        <Adsense
+                            class="text-center pb-5"
+                            data-ad-client="ca-pub-3890640160453569"
+                            data-ad-slot="4250247688"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true">
+                        </Adsense>
                         <div class="row" v-if="movie">
                             <!-- section title -->
                             <div class="col-12">
@@ -355,7 +397,7 @@ export default {
         },
         facebookShareURL() {
             let link = window.location.href;
-            link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.$route.params.length;
+            link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.movie.length;
             return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=173051317389993&width=100&height=28";
         },
         metaInfo() {

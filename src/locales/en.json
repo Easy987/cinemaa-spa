@@ -16,6 +16,7 @@
         "filter": "Filter",
         "movie": "movie",
         "series": "series",
+        "cover": "cOVER",
         "reset": "Reset",
         "change": "Change",
         "role": "Role",
@@ -23,6 +24,7 @@
         "director": "Director",
         "cast": "Cast",
         "writer": "Writer",
+        "type": "Type",
         "running_time": "Running time",
         "min": "minute",
         "links": "Links",
@@ -71,7 +73,25 @@
         "part": "Part",
         "site": "Site",
         "language": "Language",
-        "report_video": "Report premier"
+        "report_video": "Report premier",
+        "no_requests": "There aren't any requests at the time.",
+        "see_description": "View description",
+        "sender": "Sender",
+        "cookie_info": "Our website uses cookies during its operation to provide you with the best user experience. You can disable the use of cookies at any time!",
+        "ok": "OK"
+    },
+    "ladder": {
+        "not_live": "The leaderboard is refreshed once a day.",
+        "other_users": "Other users",
+        "own_ranking": "Own raking",
+        "uploaded_movies": "Uploaded movies",
+        "uploaded_links": "Submitted links",
+        "movies_rated": "Rated movies",
+        "watched_movies": "Watched movies",
+        "comments": "Comments",
+        "message_board_comments": "Message board chats",
+        "posts": "Forum posts",
+        "sent_requests": "Sent requests"
     },
     "upload": {
         "imdb": "IMDB ID",
@@ -195,6 +215,15 @@
             "newest": "Newest",
             "most-watched": "Most watched",
             "best": "Best"
+        },
+        "forum": {
+            "forums": "Forums",
+            "all_posts": "All posts",
+            "views": "Views",
+            "topics": "Topics",
+            "posts": "Posts",
+            "new_forum": "New forum",
+            "no_posts": "No posts available"
         }
     },
     "texts": {
@@ -296,6 +325,7 @@
         "profile_picture_error": "Profile picture update unsuccessful!",
         "comment_successful": "Thanks for you comment, we successfully saved it and it appears on the page!",
         "comment_successful_deleted": "Comment successfully deleted",
+        "post_successful": "Thanks for your post, we successfully saved it.",
         "profile_updated": "Profile successfully updated!",
         "profile_update_error": "Profile update unsuccessful!",
         "rating_successful": "Rating successfully sent!",
@@ -318,7 +348,8 @@
         "function_not_available": "The requested function isnt available right know.",
         "thanks_for_requesting": "Thank you for sending the request",
         "request_deleted": "Request deleted successfully.",
-        "link_exists": "The submitted link already exists in our database!"
+        "link_exists": "The submitted link already exists in our database!",
+        "message_board_deleted": "Message board message deleted!"
     },
     "roles": {
         "user": "User",

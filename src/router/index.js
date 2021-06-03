@@ -20,7 +20,7 @@ const routes = [
         path: "/:lang(series|sorozatok)/:type(uj-linkek|legujabb|legnezettebb|legjobb|new-links|newest|most-watched|best)/:page?", name: "series", component: () => import(/* webpackChunkName: "series" */ "@/pages/Series"), meta: {auth: false, title: i18n.t('meta.series')}
     },
     {
-        path: "/:lang(recommends|ajanlo)", name: "recommends", component: () => import(/* webpackChunkName: "recommends" */ "@/pages/Recommends"), meta: {auth: false}
+        path: "/:lang(recommends|ajanlo)/:page?", name: "recommends", component: () => import(/* webpackChunkName: "recommends" */ "@/pages/Recommends"), meta: {auth: false}
     },
     {
         path: "/:lang(requests|keresek)/:page?", name: "requests", component: () => import(/* webpackChunkName: "requests" */ "@/pages/Requests"), meta: {auth: true}
@@ -39,10 +39,10 @@ const routes = [
     },
 
     {
-        path: "/:lang(movie|film)/:slug/:year/:length", name: "movie", component: () => import(/* webpackChunkName: "movie" */ "@/pages/MovieDetail"), meta: {auth: false}
+        path: "/:lang(movie|film)/:slug/:year/:length?", name: "movie", component: () => import(/* webpackChunkName: "movie" */ "@/pages/MovieDetail"), meta: {auth: false}
     },
     {
-        path: "/:lang(serie|sorozat)/:slug/:year/:length", name: "serie", component: () => import(/* webpackChunkName: "serie" */ "@/pages/MovieDetail"), meta: {auth: false}
+        path: "/:lang(serie|sorozat)/:slug/:year/:length?", name: "serie", component: () => import(/* webpackChunkName: "serie" */ "@/pages/MovieDetail"), meta: {auth: false}
     },
 
     {
@@ -160,6 +160,18 @@ const routes = [
     {
         path: "/admin/reports/:page?", name: "admin-reports", component: () => import(/* webpackChunkName: "admin-reports" */ "@/pages/admin/Reports"), meta: {auth: true}
     },
+
+    {
+        path: "/admin/forums/:id?/:page?", name: "admin-forums", component: () => import(/* webpackChunkName: "admin-forums" */ "@/pages/admin/Forums"), meta: {auth: true}
+    },
+    {
+        path: "/admin/forums/forum/:id/:type/:discussion_id?", name: "admin-forum", component: () => import(/* webpackChunkName: "admin-forum" */ "@/pages/admin/Forum"), meta: {auth: true}
+    },
+
+    {
+        path: "*",
+        redirect: "/"
+    }
 ];
 
 const router = new VueRouter({

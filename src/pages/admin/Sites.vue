@@ -130,6 +130,9 @@ export default {
                         type: 'success'
                     }
                 );
+
+                this.getSites(this.$route.params.page, this.filters);
+
                 this.$emit('loadingUpdated', false);
             });
         }

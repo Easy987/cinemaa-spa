@@ -61,8 +61,8 @@
 
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                         <div class="profile__group">
-                                            <label class="profile__label" for="activity">{{ $t('base.last_login') }}</label>
-                                            <input id="activity" disabled type="text" name="register_date" class="profile__input" :value="userModel.last_login_at ? $moment(userModel.last_login_at).fromNow() : $t('base.empty')">
+                                            <label class="profile__label" for="activity">{{ $t('base.activity') }}</label>
+                                            <input id="activity" disabled type="text" name="register_date" class="profile__input" :value="userModel.last_activity_at ? userModel.last_activity_at : $t('base.empty')">
                                         </div>
                                     </div>
 

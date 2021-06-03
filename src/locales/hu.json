@@ -76,7 +76,22 @@
         "report_video": "Előzetes bejelentése",
         "no_requests": "Jelenleg egy darab kérés sincs.",
         "see_description": "Leírás megtekintése",
-        "sender": "Beküldő"
+        "sender": "Beküldő",
+        "cookie_info": "Weboldalunk sütiket (cookie) használ működése folyamán, hogy a legjobb felhasználói élményt nyújthassa Önnek. A sütik használatát bármikor letilthatja!",
+        "ok": "OK"
+    },
+    "ladder": {
+        "not_live": "Az adatok technikai részletek miatt nem valós időben frissülnek.",
+        "other_users": "További felhasználók",
+        "own_ranking": "Saját helyezés",
+        "uploaded_movies": "Feltöltött adatlapok",
+        "uploaded_links": "Beküldött linkek",
+        "movies_rated": "Értékelt adatlapok",
+        "watched_movies": "Látott adatlapok",
+        "comments": "Kommentek",
+        "message_board_comments": "Üzenőfal beszélgetések",
+        "posts": "Fórum posztok",
+        "sent_requests": "Elküldött kérések"
     },
     "upload": {
         "imdb": "IMDB ID",
@@ -206,7 +221,9 @@
             "all_posts": "Összes poszt",
             "views": "Megtekintések",
             "topics": "Témák",
-            "posts": "Posztok"
+            "posts": "Posztok",
+            "new_forum": "Új fórum",
+            "no_posts": "A kiválasztott témában nincs poszt"
         }
     },
     "texts": {
@@ -302,6 +319,7 @@
         "profile_picture_error": "Profilkép feltöltés sikertelen!",
         "comment_successful": "Köszönjük a hozzászólásod, sikeresen elmentettük és látható az adatlapon!",
         "comment_successful_deleted": "Hozzászólás sikeresen törölve",
+        "post_successful": "Köszönjük a hozzászólásod, sikeresen elmentettük.",
         "profile_updated": "Profil sikeresen mentve!",
         "profile_update_error": "Profil mentése sikertelen!",
         "rating_successful": "Értékelés sikeresen elküldve!",
@@ -324,7 +342,8 @@
         "function_not_available": "A kért funkció jelenleg nem elérhető, viszont hamarosan aktiválásra kerül.",
         "thanks_for_requesting": "Köszönjük a kérés beküldését!",
         "request_deleted": "Kérés sikeresen törölve!",
-        "link_exists": "A beküldött link már szerepel az adatbázisban!"
+        "link_exists": "A beküldött link már szerepel az adatbázisban!",
+        "message_board_deleted": "Üzenőfal üzenet törölve!"
     },
     "roles": {
         "user": "Felhasználó",

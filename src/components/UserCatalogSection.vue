@@ -3,7 +3,14 @@
         <section class="content" style="padding-bottom: 0px; margin-top: 5em !important;">
             <div class="content__head">
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+                    <Adsense
+                        class="text-center pb-3 pt-3"
+                        data-ad-client="ca-pub-3890640160453569"
+                        data-ad-slot="2375609994"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true">
+                    </Adsense>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm pt-5">
                         <div v-for="user in this.users.data" v-bind:key="user.id" class="col mb-3 mt-3">
                             <div class="card">
                                 <div class="card-body text-center">
@@ -84,6 +91,13 @@
                         <p class="section__text">{{ this.$t('messages.no_movies_found') }}</p>
                     </div>
                     <!-- end paginator -->
+                    <Adsense
+                        class="text-center pt-3"
+                        data-ad-client="ca-pub-3890640160453569"
+                        data-ad-slot="9059882935"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true">
+                    </Adsense>
                 </div>
             </div>
         </section>

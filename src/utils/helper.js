@@ -23,9 +23,11 @@ export function hasPermission(permission) {
 export function getStaticOptions(type) {
     let genres = this.$i18n.t(type);
 
-    return Object.keys(genres).map(key => {
+    genres = Object.keys(genres).map(key => {
         return {key: key, value: genres[key]};
     });
+
+    return genres.sort((a, b) => a.value.localeCompare(b.value));
 }
 
 export function capitalize(s) {

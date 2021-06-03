@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             <div class="main__table-text">
-                                                <router-link v-if="link.movie" target="_blank" :to="{ name: link.movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (link.movie.type === 0 ? 'movie' : 'serie')), slug: link.movie.slugs[$i18n.locale], year: link.movie.year, length: movie.length} }">{{ link.movie.titles['hu'] }}</router-link>
+                                                <router-link v-if="link.movie" target="_blank" :to="{ name: link.movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (link.movie.type === 0 ? 'movie' : 'serie')), slug: link.movie.slugs[$i18n.locale], year: link.movie.year, length: link.movie.length} }">{{ link.movie.titles['hu'] }}</router-link>
                                                 <div v-else>
                                                     Ismeretlen
                                                 </div>
@@ -192,6 +192,8 @@ export default {
                     }
                 );
 
+                this.getLinks(this.$route.params.page);
+
                 this.$emit('loadingUpdated', false);
             }).catch(() => {
                 this.$emit('loadingUpdated', false);
@@ -281,6 +283,8 @@ export default {
                         type: 'success'
                     }
                 );
+
+                this.getLinks(this.$route.params.page);
             });
         }
     },

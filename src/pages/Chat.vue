@@ -101,6 +101,7 @@
                 @send-message-reaction="sendReaction"
                 @menu-action-handler="menuActionHandler"
                 @message-action-handler="messageActionHandler"
+                @typing-message="typingMessage"
                 @add-room="addRoom"
                 ref="chat"
                 :text-messages="textMessages"
@@ -216,7 +217,7 @@ export default {
         return {
             rooms: [],
             messages: [],
-            messagesLoaded: false,
+            messagesLoaded: true,
             roomsLoaded: false,
             savedRooms: [],
             selectedRoom: {},
@@ -383,24 +384,26 @@ export default {
                 this.$emit('loadingUpdated', false);
             });
         },
-        fetchMessages(data) {
-            this.selectedRoom = data.room;
-            this.messagesLoaded = false;
-            this.$store.dispatch('general/getChatMessages', {roomID: data.room.roomId}).then((res) => {
-                const roomIndex = this.rooms.findIndex(x => x.roomId === data.room.roomId);
-                let room = this.rooms[roomIndex];
-                room.unreadCount = 0;
+        fetchMessages(data, options) {
+            if(this.messagesLoaded === true) {
+                this.selectedRoom = data.room;
+                this.messagesLoaded = false;
+                this.$store.dispatch('general/getChatMessages', {roomID: data.room.roomId}).then((res) => {
+                    const roomIndex = this.rooms.findIndex(x => x.roomId === data.room.roomId);
+                    let room = this.rooms[roomIndex];
+                    room.unreadCount = 0;
 
-                if(room.lastMessage) {
-                    room.lastMessage.new = 0;
-                    room.lastMessage.seen = 1;
-                }
+                    if(room.lastMessage) {
+                        room.lastMessage.new = 0;
+                        room.lastMessage.seen = 1;
+                    }
 
-                this.$set(this.rooms, roomIndex, room);
+                    this.$set(this.rooms, roomIndex, room);
 
-                this.messages = res.data;
-                this.messagesLoaded = true;
-            });
+                    this.messages = res.data;
+                    this.messagesLoaded = true;
+                });
+            }
         },
         addRoom()
         {
@@ -478,6 +481,8 @@ export default {
 
         test({ev, filteredRooms})
         {
+            console.log('searching');
+
             if(this.searchTimeout !== null) {
                 window.clearTimeout(this.searchTimeout);
             }
@@ -515,6 +520,10 @@ export default {
             this.$store.dispatch('general/sendChatMessageReaction', {message_id: messageId, reaction: reaction, remove: remove}).then((res) => {
                 this.$emit('loadingUpdated', false);
             });
+        },
+
+        typingMessage({ message, roomId }) {
+            console.log(roomId);
         },
     }
 };

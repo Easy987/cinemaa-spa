@@ -6,6 +6,11 @@
 @import 'config';
 @import 'ionicons';
 
+#onesignal-bell-container.onesignal-reset .onesignal-bell-launcher-inactive {
+    transform: scale(1);
+    opacity: .5;
+}
+
 .form-control:disabled, .form-control[readonly] {
     background-color: rgba(210, 201, 255, 0.04);
 }
@@ -2265,7 +2270,6 @@ ul {
     z-index: 100;
     pointer-events: none;
     opacity: 0;
-    max-height: 190px;
 }
 
 .filter__item-menu li a {

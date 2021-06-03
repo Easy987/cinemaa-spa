@@ -5,6 +5,13 @@
         <section class="content" style="padding-bottom: 0px;">
             <div class="content__head">
                 <div class="container">
+                    <Adsense
+                        class="text-center"
+                        data-ad-client="ca-pub-3890640160453569"
+                        data-ad-slot="2375609994"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true">
+                    </Adsense>
                     <div class="row">
                         <div class="col-12">
                             <!-- content title -->
@@ -19,9 +26,17 @@
                             <!-- end content tabs nav -->
                         </div>
                     </div>
+                    <Adsense
+                        class="text-center pt-3"
+                        data-ad-client="ca-pub-3890640160453569"
+                        data-ad-slot="9059882935"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true">
+                    </Adsense>
                 </div>
             </div>
         </section>
+
         <InformationSection
             :texts="this.$t('texts.welcome_text')"
             :title="this.$t('pages.home.information')"

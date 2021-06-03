@@ -36,20 +36,19 @@ export default {
 a.back-to-top {
     position: fixed;
     bottom: -2em;
-    right: 1em;
+    margin-left: 45%;
     //background-color: gray;
     color: #F77F00;
     width: 2em;
     height: 2em;
-    text-align: center;
     border-radius: 100%;
     //border: 2px solid rgba(255, 255, 255, 0.3);
-    font-size: 1.5em;
+    font-size: 2em;
     cursor: pointer;
     transition: bottom .2s;
     z-index: 50;
     &.show {
-        bottom: 1em;
+        bottom: 10px;
     }
 
     i {

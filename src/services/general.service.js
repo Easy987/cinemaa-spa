@@ -13,6 +13,11 @@ class GeneralService {
             return response.data;
         });
     }
+    deleteMessageBoardMessage(id) {
+        return API.delete(API_URL + "message_board/" + id).then((response) => {
+            return response.data;
+        });
+    }
     getChat() {
         return API.get(API_URL + "chat").then((response) => {
             return response.data;
@@ -91,6 +96,11 @@ class GeneralService {
     }
     deleteRequest(id) {
         return API.delete(API_URL + "requests?id=" + id).then((response) => {
+            return response.data;
+        });
+    }
+    getLeaderboard() {
+        return API.get(API_URL + "leaderboard").then((response) => {
             return response.data;
         });
     }

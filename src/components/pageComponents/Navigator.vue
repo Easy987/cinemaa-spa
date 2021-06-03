@@ -51,6 +51,10 @@
             <li v-if="items.links.first !== items.links.last && items.meta.current_page !== items.meta.last_page" class="paginator__item paginator__item--next">
                 <a @click="navigation(items.links.last)"><font-awesome-icon icon="angle-double-right" /></a>
             </li>
+
+            <li class="paginator__item" style="padding-left: 10px;">
+                <input v-on:keyup.enter="navigation(specificPage(selectedPage))" type="text" class="form__input" style="height: 100%; width: 100%; max-width: 100px; text-align: center; margin: auto;border-color: #f77f00;" v-model="selectedPage">
+            </li>
         </ul>
         <div v-else class="mb-5 text-center">
             <p class="section__text" style="color: white; font-weight: bold">{{ this.notFoundText }}</p>
@@ -64,6 +68,12 @@ export default {
 
     components: {
         
+    },
+
+    data() {
+        return {
+            selectedPage: 1,
+        };
     },
 
     props: {
@@ -82,6 +92,8 @@ export default {
     methods: {
         navigation(url) {
             this.$emit('navigation', url);
+
+            this.selectedPage = this.getPageFromURL(url);
         },
         replaceUrlParam(url, paramName, paramValue) {
             if (paramValue == null) {
@@ -103,6 +115,15 @@ export default {
             let url = this.items.meta.path;
             url = this.replaceUrlParam(url, 'page', this.items.meta.current_page + n);
             return url;
+        },
+        specificPage(n) {
+            let url = this.items.meta.path;
+            url = this.replaceUrlParam(url, 'page', n);
+            return url;
+        },
+        getPageFromURL(url) {
+            const urlObj = new URL(url);
+            return urlObj.searchParams.get("page");
         }
     },
 };
