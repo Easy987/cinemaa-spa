@@ -99,7 +99,7 @@
                                                     </div>
                                                     <div class="comments__actions">
 
-                                                        <button v-if="loggedIn() && (post.user.username === user().username || hasPermission('comments.delete')) && !(page === 1 && index === 0)" type="button" @click="deletePost(post.id)"><i class="icon ion-ios-close"></i>{{ $t('base.delete') }}</button>
+                                                        <button v-if="loggedIn() && (post.user.username === user().username || hasPermission('comments.delete'))" type="button" @click="deletePost(post.id)"><i class="icon ion-ios-close"></i>{{ $t('base.delete') }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -727,6 +727,15 @@ export default {
 
                     this.selectedTopic.posts = posts;
                     this.model.message = '';
+                    this.$emit('loadingUpdated', false);
+                }).catch((error) => {
+                    if (error.response?.status === 403) {
+                        this.$store.dispatch('user/sendToast', {
+                            message: this.$t('messages.forum_first_post'),
+                            type: 'error'
+                        });
+                    }
+
                     this.$emit('loadingUpdated', false);
                 });
             }

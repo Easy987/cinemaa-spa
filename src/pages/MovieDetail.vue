@@ -205,6 +205,13 @@
                                                        v-model="link.link">
                                             </div>
                                         </div>
+                                        <div class="row pt-3">
+                                            <div class="col-12 pl-0"><label class="form__label">{{ $t('base.comment') }}</label></div>
+                                            <div class="col-12 pl-0">
+                                                <input type="text" class="profile__input"
+                                                       v-model="link.message">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </b-modal>
@@ -532,6 +539,8 @@ export default {
             this.$emit('loadingUpdated', true);
             this.$store.dispatch('movie/getMovie', {slug: this.$route.params.slug, year: this.$route.params.year, length: this.$route.params.length}).then((response) => {
                 this.movie = response.data;
+                document.title = this.movie.titles[this.$i18n.locale] + ' | Cinemaa.cc';
+
                 this.$emit('loadingUpdated', false);
             });
         },

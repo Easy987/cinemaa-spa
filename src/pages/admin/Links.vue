@@ -45,6 +45,7 @@
                                     <th>TIPUS</th>
                                     <th>NYELV</th>
                                     <th>LINK</th>
+                                    <th>MEGJEGYZÉS</th>
                                     <th>STÁTUSZ</th>
                                     <th>BEKÜLDŐ</th>
                                     <th>LÉTREHOZÁS DÁTUMA</th>
@@ -81,6 +82,9 @@
                                         </td>
                                         <td style="max-width: 100px; overflow: hidden">
                                             <div class="main__table-text">{{ link.link }}</div>
+                                        </td>
+                                        <td style="max-width: 200px; overflow: hidden">
+                                            <div class="main__table-text">{{ link.message ? link.message : 'Nincs' }}</div>
                                         </td>
                                         <td>
                                             <div class="main__table-text" :class="{'main__table-text--green' : link.status === '1', 'main__table-text--red': link.status === '2' || link.status === '3'}">{{ getLinkStatus(link.status) }}</div>

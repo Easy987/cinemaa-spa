@@ -3,6 +3,13 @@
         <Header></Header>
         <PageTitle :title="$t('nav.ladder')"></PageTitle>
         <div class="container">
+            <Adsense
+                class="text-center pt-5"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="2375609994"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
             <section class="content" style="padding-bottom: 0px; margin-top: 5em !important;">
                 <div class="content__head">
                     <h3 class="text-center text-secondary pb-2">{{ $t('ladder.not_live')}}</h3>
@@ -63,6 +70,13 @@
                     </div>
                 </div>
             </section>
+            <Adsense
+                class="text-center pb-5"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="9059882935"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
         </div>
         <div v-if="false" class="m-auto w-100 text-center" style="color: white;">
             <h3>{{ $t('messages.function_not_available') }}</h3>

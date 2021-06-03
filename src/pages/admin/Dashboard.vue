@@ -11,7 +11,6 @@
                         </div>
                     </div>
                     <!-- end main title -->
-
                     <!-- stats -->
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="stats">
@@ -53,6 +52,13 @@
                     <!-- end stats -->
                 </div>
             </div>
+            <Adsense
+                class="text-center pt-3"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="9059882935"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
         </main>
     </div>
 </template>

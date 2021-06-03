@@ -24,6 +24,7 @@
                                     <th>ID</th>
                                     <th>ADATLAP</th>
                                     <th>TIPUS</th>
+                                    <th>MEGJEGYZÉS</th>
                                     <th>BEKÜLDŐ</th>
                                     <th>BEKÜLDÉS DÁTUMA</th>
                                     <th>SZERKESZTÉS</th>
@@ -39,6 +40,9 @@
                                         </td>
                                         <td>
                                             <div class="main__table-text">{{ report.type === 0 ? 'Link' : 'Előzetes' }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="main__table-text">{{ report.message ? report.message : 'Nincs' }}</div>
                                         </td>
                                         <td>
                                             <div class="main__table-text">{{ report.user ? report.user.username : 'Ismeretlen' }}</div>

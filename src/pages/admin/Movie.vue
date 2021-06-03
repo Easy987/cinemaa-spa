@@ -287,7 +287,7 @@
                                                                 </multiselect>
                                                             </div>
                                                             <div class="col-2">
-                                                                <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="statusTypes"></b-form-select>
+                                                                <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="linkStatusTypes"></b-form-select>
                                                             </div>
                                                             <div class="col d-flex">
                                                                 <button type="button" style="height: 46px;" @click="openLink(link.link)" class="main__table-btn main__table-btn--view" v-b-popover.hover.bottom="''" title="Link megtekintése">
@@ -466,7 +466,13 @@ export default {
                 { value: 0, text: 'Folyamatban' },
                 { value: 1, text: 'Engedélyezve' },
                 { value: 2, text: 'Rejtett' },
-            ]
+            ],
+            linkStatusTypes: [
+                { value: 0, text: 'Folyamatban' },
+                { value: 1, text: 'Engedélyezve' },
+                { value: 2, text: 'Rejtett' },
+                { value: 3, text: 'Rendszer által kiszűrt' },
+            ],
         }
     },
 
@@ -502,7 +508,9 @@ export default {
         getMovie() {
             this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/getMovie', {id: this.$route.params.id}).then((res) => {
+                res.data.is_premier = res.data.is_premier ? true : false;
                 this.movie = res.data;
+
                 this.$emit('loadingUpdated', false);
             });
         },

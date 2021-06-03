@@ -78,7 +78,8 @@
         "see_description": "Leírás megtekintése",
         "sender": "Beküldő",
         "cookie_info": "Weboldalunk sütiket (cookie) használ működése folyamán, hogy a legjobb felhasználói élményt nyújthassa Önnek. A sütik használatát bármikor letilthatja!",
-        "ok": "OK"
+        "ok": "OK",
+        "comment": "Megjegyzés"
     },
     "ladder": {
         "not_live": "Az adatok technikai részletek miatt nem valós időben frissülnek.",
@@ -343,7 +344,8 @@
         "thanks_for_requesting": "Köszönjük a kérés beküldését!",
         "request_deleted": "Kérés sikeresen törölve!",
         "link_exists": "A beküldött link már szerepel az adatbázisban!",
-        "message_board_deleted": "Üzenőfal üzenet törölve!"
+        "message_board_deleted": "Üzenőfal üzenet törölve!",
+        "forum_first_post": "Nincs jogosultságod első posztot írni!"
     },
     "roles": {
         "user": "Felhasználó",

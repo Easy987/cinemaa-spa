@@ -126,11 +126,14 @@ export default {
             }
         },
         deleteDiscussion(id) {
+            this.$emit('loadingUpdated', true);
+
             this.$api.delete(process.env.VUE_APP_API_URL + "/admin/forum/delete?type=" + (this.$route.params.id === undefined) + "&id=" + id).then((res) => {
                 this.getDiscussions(1);
                 this.$emit('loadingUpdated', false);
+            }).catch(() => {
+                this.$emit('loadingUpdated', false);
             });
-            this.$emit('loadingUpdated', true);
         }
     },
 

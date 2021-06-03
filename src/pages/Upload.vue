@@ -3,6 +3,13 @@
         <Header></Header>
         <PageTitle :title="$t('nav.upload')"></PageTitle>
         <div class="container mt-5">
+            <Adsense
+                class="text-center pb-5"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="2375609994"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
             <div class="row">
                 <div class="col-12">
                     <div class="row m-auto">
@@ -180,7 +187,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 col-12">
-                                <button class="btn btn-primary mb-5" @click="newMovieData.links.push({site: null, languageType: null, linkType: null, season: 0, episode: 0, part: 0, link: ''}); $forceUpdate();">{{ $t('upload.new_link')}}</button>
+                                <button class="btn btn-primary mb-5" @click="newMovieData.links.push({site: null, languageType: null, linkType: null, season: 0, episode: 0, part: 0, link: '', message: ''}); $forceUpdate();">{{ $t('upload.new_link')}}</button>
                                 <button class="btn btn-primary mb-5 ml-2" @click="newMovieData.links.pop(); $forceUpdate();">{{ $t('base.delete')}}</button>
                                 <div v-for="(link, index) in newMovieData.links" v-bind:key="'link'+index" class="profile__group ml-3 mt-3">
                                         <div class="row text-left">
@@ -241,6 +248,13 @@
                                                        v-model="link.part">
                                             </div>
                                         </div>
+                                        <div class="row pt-3">
+                                            <div class="col-12 pl-0"><label class="form__label">{{ $t('base.comment') }}</label></div>
+                                            <div class="col-12 pl-0">
+                                                <input type="text" class="profile__input"
+                                                       v-model="link.message">
+                                            </div>
+                                        </div>
                                     </div>
                             </div>
 
@@ -250,6 +264,13 @@
                     </div>
                 </div>
             </div>
+            <Adsense
+                class="text-center pt-3"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="9059882935"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
         </div>
         <Footer></Footer>
     </div>
@@ -262,6 +283,7 @@ import PageTitle from "@/components/PageTitle";
 import Multiselect from "vue-multiselect";
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import {mapGetters} from "vuex";
+import {capitalize} from "@/utils/helper";
 
 export default {
     name: "Upload",
@@ -292,8 +314,8 @@ export default {
             foundMovie: false,
             emptyMovie: false,
             movieTypes: [
-                { value: 0, text: this.$t('base.movie') },
-                { value: 1, text: this.$t('base.series') },
+                { value: 0, text: capitalize(this.$t('base.movie')) },
+                { value: 1, text: capitalize(this.$t('base.series')) },
             ]
         }
     },

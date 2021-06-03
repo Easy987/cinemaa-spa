@@ -78,7 +78,8 @@
         "see_description": "View description",
         "sender": "Sender",
         "cookie_info": "Our website uses cookies during its operation to provide you with the best user experience. You can disable the use of cookies at any time!",
-        "ok": "OK"
+        "ok": "OK",
+        "comment": "Comment"
     },
     "ladder": {
         "not_live": "The leaderboard is refreshed once a day.",
@@ -349,7 +350,8 @@
         "thanks_for_requesting": "Thank you for sending the request",
         "request_deleted": "Request deleted successfully.",
         "link_exists": "The submitted link already exists in our database!",
-        "message_board_deleted": "Message board message deleted!"
+        "message_board_deleted": "Message board message deleted!",
+        "forum_first_post": "You dont have permission to write first post!"
     },
     "roles": {
         "user": "User",

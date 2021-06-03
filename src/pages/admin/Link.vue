@@ -98,6 +98,9 @@
                                                                 v-b-popover.hover.bottom="''" title="Link megtekintése">
                                                             <i class="icon ion-ios-open"></i>
                                                         </button>
+                                                        <button type="button" style="height: 46px;" @click="deleteLink(link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
+                                                            <i class="icon ion-ios-trash"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="row text-left">
@@ -124,11 +127,18 @@
                                                                v-model="link.link">
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-left"><label class="form__label">Megjegyzés</label></div>
+                                                    <div class="col-12">
+                                                        <input type="text" name="email" class="form__input"
+                                                               v-model="link.message">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div v-else>
-                                                <div class="row text-left" :class="{'pt-5' : index !== 0}">
-                                                    <div class="col-6"><label class="form__label">Beküldő</label></div>
-                                                    <div class="col-6">
+                                                <div class="row text-left">
+                                                    <div class="col-6 pt-2"><label class="form__label">Beküldő</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <multiselect
                                                             v-model="link.user"
                                                             :options="moviesInfo.users"
@@ -142,8 +152,8 @@
                                                             :searchable="true">
                                                         </multiselect>
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Videómegosztó</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Videómegosztó</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <multiselect
                                                             v-model="link.site"
                                                             :options="moviesInfo.sites"
@@ -155,8 +165,8 @@
                                                             :searchable="true">
                                                         </multiselect>
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Nyelv tipus</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Nyelv tipus</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <multiselect
                                                             v-model="link.languageType"
                                                             :options="moviesInfo.languageTypes"
@@ -169,8 +179,8 @@
                                                             :searchable="true">
                                                         </multiselect>
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Link tipus</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Link tipus</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <multiselect
                                                             v-model="link.linkType"
                                                             :options="moviesInfo.linkTypes"
@@ -183,34 +193,38 @@
                                                             :searchable="true">
                                                         </multiselect>
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Státusz</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Státusz</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <b-form-select style="background-color: rgba(210, 201, 255, 0.04); color: white; border: 1px solid transparent;" v-model="link.status" :options="statusTypes"></b-form-select>
                                                     </div>
 
-                                                    <div class="col-6"><label class="form__label">Évad</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Évad</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <input type="text" name="email" class="form__input mb-0" v-model="link.season">
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Epizód</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Epizód</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <input type="text" name="email" class="form__input mb-0" v-model="link.episode">
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Rész</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Rész</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <input type="text" name="email" class="form__input mb-0" v-model="link.part">
                                                     </div>
-                                                    <div class="col-6"><label class="form__label">Link</label></div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 pt-2"><label class="form__label">Link</label></div>
+                                                    <div class="col-6 pt-2">
                                                         <input type="text" name="email" class="form__input mb-0" v-model="link.link">
                                                     </div>
+                                                    <div class="col-6 pt-2"><label class="form__label">Megjegyzés</label></div>
+                                                    <div class="col-6 pt-2">
+                                                        <input type="text" name="email" class="form__input mb-0" v-model="link.message">
+                                                    </div>
 
-                                                    <div class="col-6"><label class="form__label">Szerkesztés</label></div>
-                                                    <div class="col-6 d-flex">
+                                                    <div class="col-6 pt-2"><label class="form__label">Szerkesztés</label></div>
+                                                    <div class="col-6 pt-2 d-flex">
                                                         <button type="button" style="height: 46px;" @click="openLink(link.link)" class="main__table-btn main__table-btn--view" v-b-popover.hover.bottom="''" title="Link megtekintése">
                                                             <i class="icon ion-ios-open"></i>
                                                         </button>
-                                                        <button type="button" style="height: 46px;" @click="deleteLink(movie, link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
+                                                        <button type="button" style="height: 46px;" @click="deleteLink(link.id)" class="main__table-btn main__table-btn--delete" v-b-popover.hover.bottom="''" title="Link törlése">
                                                             <i class="icon ion-ios-trash"></i>
                                                         </button>
                                                     </div>
@@ -319,6 +333,21 @@ export default {
             this.$store.dispatch('admin/saveLink', {link: this.link}).then((res) => {
                 this.$store.dispatch('user/sendToast', {
                         message: 'Link sikeresen frissítve.',
+                        type: 'success'
+                    }
+                );
+
+                this.$router.push({'name': 'admin-links'});
+
+                this.$emit('loadingUpdated', false);
+            });
+        },
+
+        deleteLink(id) {
+            this.$emit('loadingUpdated', true);
+            this.$store.dispatch('admin/deleteLink', {link: id}).then(() => {
+                this.$store.dispatch('user/sendToast', {
+                        message: 'Link sikeresen törölve.',
                         type: 'success'
                     }
                 );

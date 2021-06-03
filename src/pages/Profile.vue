@@ -34,6 +34,13 @@
             </div>
         </div>
         <div class="container">
+            <Adsense
+                class="text-center pb-5"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="2375609994"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
             <!-- content tabs -->
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
@@ -144,6 +151,13 @@
                     </div>
                 </div>
             </div>
+            <Adsense
+                class="text-center pb-5"
+                data-ad-client="ca-pub-3890640160453569"
+                data-ad-slot="9059882935"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </Adsense>
             <!-- end content tabs -->
         </div>
         <Footer></Footer>
