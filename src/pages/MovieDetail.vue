@@ -92,19 +92,11 @@
                     <!-- end content -->
 
                     <!-- player -->
-                    <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}" v-if="movie.videos.length">
-                        <youtube :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
-                        <Adsense
-                            v-if="false"
-                            class="text-center pt-3"
-                            data-ad-client="ca-pub-3890640160453569"
-                            data-ad-slot="3398995167"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true">
-                        </Adsense>
-                        <button v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
+                    <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}">
+                        <youtube v-if="movie.videos.length" :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
+                        <button v-if="movie.videos.length" v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
                         <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                        <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=768820493841395" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                     <!-- end player -->
                 </div>
@@ -118,7 +110,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mt-3 mb-3 text-center">
-                                <iframe :class="{'d-none': this.$screen.width > 480, 'd-inline-block': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=768820493841395" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                <iframe :class="{'d-none': this.$screen.width > 480, 'd-inline-block': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                                 <iframe :class="{'d-none': this.$screen.width > 480, 'd-inline-block': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
 
@@ -406,7 +398,7 @@ export default {
             if(this.movie) {
                 let link = window.location.href;
                 link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.movie.length;
-                return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=173051317389993&width=100&height=28";
+                return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=528741441632721&width=100&height=28";
             }
 
             return "";

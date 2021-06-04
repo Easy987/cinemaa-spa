@@ -94,7 +94,7 @@
                 :messagesLoaded="messagesLoaded"
                 :roomsLoaded="roomsLoaded"
                 :show-files="false"
-                :show-send-icon="false"
+                :show-send-icon="true"
                 :show-audio="false"
                 :room-id="selectedRoom.roomId"
                 @send-message="sendMessage"
