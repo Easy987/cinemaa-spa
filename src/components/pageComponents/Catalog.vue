@@ -1,7 +1,18 @@
 <template>
     <div>
         <Header></Header>
-        <PageTitle :title="title"></PageTitle>
+        <MovieCarouselSection :type="this.type" :title="this.$t('pages.home.new_items_of_the_season')" :movies="this.premiers"></MovieCarouselSection>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__wrap">
+                        <!-- section title -->
+                        <h2 class="section__title">{{ title }}</h2>
+                        <!-- end section title -->
+                    </div>
+                </div>
+            </div>
+        </div>
         <FilterSection :type="this.type" :genres="this.getStaticOptions('genres')" :qualities="this.getStaticOptions('qualities')" @filter="filter"></FilterSection>
         <section v-if="subType">
             <div class="container">
@@ -49,22 +60,29 @@
 
 <script>
 import CatalogSection from "@/components/CatalogSection";
-import PageTitle from "@/components/PageTitle";
 import {mapGetters} from "vuex";
+import MovieCarouselSection from "@/components/MovieCarouselSection";
 import FilterSection from "@/components/FilterSection";
+import {capitalize} from "@/utils/helper";
 
 export default {
     name: "Catalog",
 
     components: {
         FilterSection,
-        PageTitle,
-        CatalogSection
+        CatalogSection,
+        MovieCarouselSection
     },
 
     computed: {
         movies() {
             return this.$store.getters["movie/" + this.type];
+        },
+        premiers() {
+            return this.$store.getters["movie/" + this.premiersName];
+        },
+        premiersName() {
+            return "premiers" + capitalize(this.type);
         }
     },
 
@@ -148,6 +166,13 @@ export default {
     },
 
     created() {
+        if(this.premiers && this.premiers.length === 0) {
+            this.$emit('loadingUpdated', true);
+            this.$store.dispatch('movie/get' + capitalize(this.premiersName)).then(() => {
+                this.$emit('loadingUpdated', false);
+            });
+        }
+
         const currentType = this.$route.params.type;
         if(['new-links', 'uj-linkek'].includes(currentType)){
             this.selectedPage = 'new-links';

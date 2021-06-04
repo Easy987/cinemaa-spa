@@ -40,11 +40,15 @@ export default {
 
     components: {
         carousel,
-        MovieCard
+        MovieCard,
     },
 
     props: {
         title: {
+            type: String,
+            default: ''
+        },
+        type: {
             type: String,
             default: ''
         },

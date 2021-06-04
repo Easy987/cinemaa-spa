@@ -265,7 +265,7 @@ export default {
     max-height: 300px;
 }
 
-.active a {
+/*.active a {
     color: #f77f00 !important;
-}
+}*/
 </style>

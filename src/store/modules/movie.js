@@ -10,6 +10,10 @@ const movie = {
             'top': [],
             'popular': []
         },
+        premierMovies: {
+            'movies': [],
+            'series': []
+        },
         recommendMovies: {
             'premiers': [],
             'dvd': [],
@@ -40,6 +44,15 @@ const movie = {
         popularMovies(state) {
             return state.homeMovies.popular;
         },
+
+        premiersMovies(state) {
+            return state.premierMovies.movies;
+        },
+
+        premiersSeries(state) {
+            return state.premierMovies.series;
+        },
+
         premierMovies(state) {
             return state.recommendMovies.premiers;
         },
@@ -93,6 +106,19 @@ const movie = {
                 });
             });
         },
+
+        getPremiersMovies({commit}) {
+            return MovieService.getHomeMovies('premiers/movies').then((response) => {
+                commit("setPremiersMovies", {type: 'movies', movies: response});
+            });
+        },
+
+        getPremiersSeries({commit}) {
+            return MovieService.getHomeMovies('premiers/series').then((response) => {
+                commit("setPremiersMovies", {type: 'series', movies: response});
+            });
+        },
+
         getMovies({commit}, {page, filters, subType}) {
             return MovieService.getMovies('movies', {page: page, filters: filters, subType: subType}).then(
                 (response) => {
@@ -303,6 +329,9 @@ const movie = {
     mutations: {
         setHomeMovies(state, {type, movies}) {
             state.homeMovies[type] = movies;
+        },
+        setPremiersMovies(state, {type, movies}) {
+            state.premierMovies[type] = movies;
         },
         setPopMovies(state, movies) {
             state.popularMovies = movies;

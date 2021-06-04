@@ -94,6 +94,7 @@
                 :messagesLoaded="messagesLoaded"
                 :roomsLoaded="roomsLoaded"
                 :show-files="false"
+                :show-send-icon="false"
                 :show-audio="false"
                 :room-id="selectedRoom.roomId"
                 @send-message="sendMessage"
@@ -436,6 +437,36 @@ export default {
         {
             const messageID = uuid.v4();
 
+            const formData = new FormData();
+
+            let needsWait = false;
+
+            /*if(data.file !== null) {
+                needsWait = true;
+                let newFile = new File([data.file.blob], data.file.name + '.' + data.file.extension);
+
+                const reader = new FileReader();
+                if (newFile) {
+                    reader.readAsDataURL(newFile);
+                }
+
+                const ref = this;
+                reader.onloadend = function (e) {
+                    console.log('file read:');
+                    console.log(reader.result);
+                    data['uploaded_file'] = reader.result;
+                    needsWait = false;
+
+                    ref.processSendMessage(messageID, data);
+                }
+            }*/
+
+            if(!needsWait) {
+                this.processSendMessage(messageID, data);
+            }
+        },
+
+        processSendMessage(messageID, data) {
             data['room'] = this.selectedRoom;
 
             let message = {

@@ -403,9 +403,13 @@ export default {
             return process.env.VUE_APP_FORRAS_URL;
         },
         facebookShareURL() {
-            let link = window.location.href;
-            link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.movie.length;
-            return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=173051317389993&width=100&height=28";
+            if(this.movie) {
+                let link = window.location.href;
+                link = this.forrasUrl + '/share/' + this.$i18n.locale + '/' + this.$route.params.slug + '/' + this.$route.params.year + '/' + this.movie.length;
+                return "https://www.facebook.com/plugins/share_button.php?href="+ link +"&layout=button&size=large&appId=173051317389993&width=100&height=28";
+            }
+
+            return "";
         },
         metaInfo() {
             return {

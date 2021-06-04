@@ -22,7 +22,24 @@
                                             <h4 class="form__title">Adatok szerkesztése</h4>
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 pb-3">
+                                        <div class="col-12 col-md-6 pb-3">
+                                            <div class="form__group">
+                                                <label class="form__label">Adatlap befrissítése</label>
+                                                <button type="button" @click="refreshMovie" class="form__btn">Frissítés</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <div class="profile__group">
+                                                <label class="profile__label">Borítókép</label>
+                                                <b-form-file
+                                                    v-model="movie.poster"
+                                                    @change="onFileChange"
+                                                ></b-form-file>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 pb-3" :class="{'col-12' : user().role !== 'owner', 'col-md-12': user().role !== 'owner', 'col-md-6': user().role === 'owner'}">
                                             <div class="form__group">
                                                 <label class="form__label">Premier</label>
                                                 <b-form-checkbox size="lg" v-model="movie.is_premier" name="check-button" switch>
@@ -31,10 +48,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 pb-3">
+                                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 pb-3" v-if="loggedIn() && user().role === 'owner'">
                                             <div class="form__group">
-                                                <label class="form__label">Adatlap befrissítése</label>
-                                                <button type="button" @click="refreshMovie" class="form__btn">Frissítés</button>
+                                                <label class="form__label">Csak bejelentkezve látható</label>
+                                                <b-form-checkbox size="lg" v-model="movie.only_auth" name="check-button" switch>
+                                                    <b style="color: white;">{{ movie.only_auth ? $t('base.enabled') : $t('base.disabled') }}</b>
+                                                </b-form-checkbox>
                                             </div>
                                         </div>
 
@@ -489,6 +508,26 @@ export default {
     },
 
     methods: {
+        onFileChange(e) {
+            const file  = e.target.files[0];
+            const reader = new FileReader();
+            if (file && file.type.match('image.*')) {
+                reader.readAsDataURL(file);
+
+                const ref = this;
+                reader.onloadend = function (e) {
+                    ref.movie.poster = reader.result;
+                }
+            } else {
+                this.$store.dispatch('user/sendToast', {
+                        message: 'A feltöltött borítókép nem kép!',
+                        type: 'error'
+                    }
+                );
+
+                this.movie.poster = null;
+            }
+        },
         addVideo() {
             this.movie.videos.push({});
         },
@@ -509,6 +548,11 @@ export default {
             this.$emit('loadingUpdated', true);
             this.$store.dispatch('admin/getMovie', {id: this.$route.params.id}).then((res) => {
                 res.data.is_premier = res.data.is_premier ? true : false;
+
+                if(res.data.only_auth) {
+                    res.data.only_auth = res.data.only_auth ? true : false;
+                }
+
                 this.movie = res.data;
 
                 this.$emit('loadingUpdated', false);

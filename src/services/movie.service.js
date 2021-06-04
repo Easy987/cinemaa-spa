@@ -10,6 +10,12 @@ class MovieService {
                 return response.data.data;
             });
     }
+    getPremiers(type) {
+        return API.get(API_URL + 'premiers/' + type)
+            .then((response) => {
+                return response.data;
+            });
+    }
     getHomeMovies(type) {
         return API.get(API_URL + type)
             .then((response) => {

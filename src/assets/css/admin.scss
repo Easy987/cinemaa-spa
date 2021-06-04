@@ -6,6 +6,16 @@
 @import 'config';
 @import 'ionicons';
 
+
+.custom-file-label {
+  background-color: rgba(210, 201, 255, 0.04) !important;
+  border: none;
+}
+.custom-file-label::after {
+  background-color: $BG_COLOR;
+  color: black;
+}
+
 button, a {
   color: rgba(255, 255, 255, 0.7);
 }
