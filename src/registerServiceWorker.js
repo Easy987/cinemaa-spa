@@ -2,22 +2,8 @@
 
 import { register } from "register-service-worker";
 
-function isIos() {
-  return [
-        'iPad Simulator',
-        'iPhone Simulator',
-        'iPod Simulator',
-        'iPad',
-        'iPhone',
-        'iPod'
-      ].includes(navigator.platform)
-      // iPad on iOS 13 detection
-      || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
-}
-
-
 if (process.env.NODE_ENV === "production") {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+  register(`${process.env.VUE_APP_FRONTEND_URL}/sw/service-worker.js`, {
     ready() {
       console.log(
           "App is being served from cache by a service worker.\n" +
@@ -25,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
       );
     },
     registered() {
-      console.log("Service worker has been registered.");
+      console.log("Service worker has been registered. :)");
     },
     cached() {
       console.log("Content has been cached for offline use.");
@@ -40,7 +26,6 @@ if (process.env.NODE_ENV === "production") {
       {
         window.location.reload(true);
       }
-
     },
     offline() {
       console.log(

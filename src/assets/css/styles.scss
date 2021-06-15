@@ -1937,6 +1937,10 @@ ul {
     opacity: 1;
 }
 
+.card__category a:focus {
+    color: $BG_COLOR !important;
+}
+
 .card__rate {
     font-size: 14px;
     font-weight: 600;

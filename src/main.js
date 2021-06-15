@@ -2,24 +2,26 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
-import {BootstrapVue, BootstrapVueIcons} from "bootstrap-vue";
+import {BootstrapVue } from "bootstrap-vue";
 import i18n from "./i18n";
 import {getStaticOptions, getMovieCardRatingClass, hasPermission, loggedIn, user, capitalize} from "@/utils/helper";
 import VueToast from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
-import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 import VueI18n from "vue-i18n";
 import ScrollBar from '@morioh/v-smooth-scrollbar'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import Echo from "laravel-echo";
-import {faFacebookF, faFacebookMessenger, faInstagram} from '@fortawesome/free-brands-svg-icons'
-import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome'
-import VueMeta from 'vue-meta';
-//import "./registerServiceWorker";
+import {faFacebookF, faInstagram} from '@fortawesome/free-brands-svg-icons';
+import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome';
+import {
+    faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight
+    , faComment, faBell, faTimes, faBars, faArrowUp, faPlus, faAlignJustify,
+    faTrashAlt, faTrophy, faClock, faHeart, faEye, faQuestionCircle
+} from '@fortawesome/free-solid-svg-icons';
+import "./registerServiceWorker";
 import API from "@/api";
 
 Vue.use(BootstrapVue);
-Vue.use(BootstrapVueIcons);
 Vue.use(VueToast);
 Vue.use(VueI18n);
 Vue.use(ScrollBar);
@@ -29,16 +31,16 @@ Vue.use(require('vue-moment'), {
     moment
 })
 
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-library.add(fas);
+library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight
+    , faComment, faBell, faTimes, faBars, faArrowUp, faPlus, faAlignJustify,
+    faTrashAlt, faTrophy, faClock, faHeart, faEye, faQuestionCircle);
 library.add(faFacebookF);
 library.add(faInstagram);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
 
-import Ads from 'vue-google-adsense'
+import Ads from 'vue-google-adsense';
 
 Vue.use(require('vue-script2'))
 
@@ -72,12 +74,7 @@ Vue.prototype.$screen = new Vue({
 window.addEventListener('resize', () => {
     Vue.prototype.$screen.width = window.innerWidth;
     Vue.prototype.$screen.height = window.innerHeight;
-});
-
-Vue.use(VueMeta, {
-    // optional pluginOptions
-    refreshOnceOnNavigation: true
-})
+}, {passive: true});
 
 //if(store.getters["auth/loggedIn"]) {
     window.Pusher = require('pusher-js');

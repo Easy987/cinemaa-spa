@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <PageTitle :title="$t('nav.ladder')"></PageTitle>
-        <div class="container">
+        <div v-if="loggedIn()" class="container">
             <Adsense
                 class="text-center pt-5"
                 data-ad-client="ca-pub-3890640160453569"
@@ -14,12 +14,12 @@
                 <div class="content__head">
                     <h3 class="text-center text-secondary pb-2">{{ $t('ladder.not_live')}}</h3>
                     <div class="col-md-8 col-sm-6 col-12 m-auto p-5" style="border: 2px solid black;" v-if="leaderboard">
-                        <div v-for="(category, index) in leaderboard">
+                        <div v-for="(category, index) in leaderboard" v-bind:key="index">
                             <div v-if="category && category.top !== null && category.top.length !== 0">
                                 <hr />
-                                <h2 :class="{'pt-5': index !== 'uploaded_movies'}" class="pb-4 text-center">{{ $t('ladder.'+index) }}</h2>
+                                <h2 :class="{'pt-5': index !== 'uploaded_movies'}" class="pb-4 text-center">{{ $t('ladder.titles.'+index) }} <button v-b-popover.hover.bottom="''" :title="$t('ladder.descriptions.'+index)" href="#"><font-awesome-icon icon="question-circle"></font-awesome-icon></button></h2>
                                 <div class="row">
-                                    <div class="col-md-4 col-12 m-auto" v-for="(top, index) in calculateTop(category.top)">
+                                    <div class="col-md-4 col-12 m-auto" v-for="(top, index) in calculateTop(category.top)" v-bind:key="index">
                                         <div class="leaderboard-card" v-if="top" :class="{'leaderboard-card--first': (top.order+1) === 1}">
                                             <div class="leaderboard-card__top">
                                                 <h2 class="text-center">{{ top.score }}</h2><span>
@@ -53,7 +53,7 @@
                                     <div class="card"><button class="p-4 btn btn-link" @click="$refs['accordion'+index][0].classList.toggle('show')">{{ $t('base.see') }}</button>
                                         <div class="collapse" :ref="'accordion'+index" :id="'collapse'+index" style="border: 2px solid black;" aria-labelledby="headingOne" data-parent="#accordion">
                                             <div class="card-body pt-0">
-                                                <div class="card" v-for="(user, index) in category.users">
+                                                <div class="card" v-for="(user, userIndex) in category.users" v-bind:key="category + userIndex">
                                                     <div class="card-body d-inline-flex w-100" :class="{'p-0': $screen.width < 480, 'pt-3': $screen.width < 480}">
                                                         <h5 class="pr-2 mt-auto mb-auto">{{ user.order+1 }}.</h5>
                                                         <img :src="user.picture" class="rounded-circle" style="width: 50px; height: 50px;" alt="User" />
@@ -245,10 +245,12 @@ export default {
 
 
     created() {
-        if((this.leaderboard && Object.keys(this.leaderboard).length === 0)) {
-            this.$store.dispatch('general/getLeaderboard').then(() => {
-                this.$emit('loadingUpdated', false);
-            });
+        if(this.loggedIn()) {
+            if((this.leaderboard && Object.keys(this.leaderboard).length === 0)) {
+                this.$store.dispatch('general/getLeaderboard').then(() => {
+                    this.$emit('loadingUpdated', false);
+                });
+            }
         }
     }
 };

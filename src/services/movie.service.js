@@ -4,8 +4,8 @@ import movie from "@/store/modules/movie";
 const API_URL = process.env.VUE_APP_API_URL + "/movies/";
 
 class MovieService {
-    getMoviesInfo() {
-        return API.get(API_URL + 'info')
+    getMoviesInfo(admin) {
+        return API.get(API_URL + 'info' + (admin ? '?cinemaa-admin=1' : ''))
             .then((response) => {
                 return response.data.data;
             });
@@ -112,8 +112,8 @@ class MovieService {
             return response.data;
         });
     }
-    sendReport(id, type, movie_id) {
-        return API.post(API_URL + 'report', { id: id, type: type, movie_id: movie_id }).then((response) => {
+    sendReport(id, type, movie_id, message) {
+        return API.post(API_URL + 'report', { id: id, type: type, movie_id: movie_id, message: message }).then((response) => {
             return response.data;
         });
     }

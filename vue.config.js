@@ -2,11 +2,14 @@
 const webpack = require("webpack");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin"); // for moment tree shaking locales
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin;
 
 module.exports = {
   pwa: {
     workboxOptions: {
-      skipWaiting: true
+      skipWaiting: true,
+      swDest: "sw/service-worker.js"
     }
   },
   publicPath: "/",
@@ -14,12 +17,15 @@ module.exports = {
   productionSourceMap: process.env.NODE_ENV !== "production",
   crossorigin: "use-credentials",
   lintOnSave: true,
-  configureWebpack: (config) => {
+  /*configureWebpack: (config) => {
     if (process.env.NODE_ENV === "development") {
       config.devtool = "source-map";
     } else if (process.env.NODE_ENV === "test") {
       config.devtool = "cheap-module-eval-source-map";
     }
+  },*/
+  configureWebpack: {
+    //plugins: [new BundleAnalyzerPlugin()]
   },
   chainWebpack: (config) => {
     // for moment tree shaking locales
@@ -107,7 +113,7 @@ module.exports = {
         .plugin("moment")
         .use(MomentLocalesPlugin, [
           {
-            localesToKeep: ["en-us", "hu"],
+            localesToKeep: ["en-gb", "hu"],
           },
         ])
         .use(

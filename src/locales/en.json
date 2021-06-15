@@ -85,14 +85,28 @@
         "not_live": "The leaderboard is refreshed once a day.",
         "other_users": "Other users",
         "own_ranking": "Own raking",
-        "uploaded_movies": "Uploaded movies",
-        "uploaded_links": "Submitted links",
-        "movies_rated": "Rated movies",
-        "watched_movies": "Watched movies",
-        "comments": "Comments",
-        "message_board_comments": "Message board chats",
-        "posts": "Forum posts",
-        "sent_requests": "Sent requests"
+        "titles": {
+            "uploaded_movies": "Uploaded movies",
+            "uploaded_links": "Submitted links",
+            "movies_rated": "Rated movies",
+            "watched_movies": "Watched movies",
+            "viewed_movies": "Viewed movies",
+            "comments": "Comments",
+            "message_board_comments": "Message board chats",
+            "posts": "Forum posts",
+            "sent_requests": "Sent requests"
+        },
+        "descriptions": {
+            "uploaded_movies": "Uploaded movies count",
+            "uploaded_links": "Submitted links count",
+            "movies_rated": "Rated movies count",
+            "watched_movies": "Watched movies/series count",
+            "viewed_movies": "Viewed movies count",
+            "comments": "Comments count",
+            "message_board_comments": "Message board chats count",
+            "posts": "Forum posts count",
+            "sent_requests": "Sent requests count"
+        }
     },
     "upload": {
         "imdb": "IMDB ID",

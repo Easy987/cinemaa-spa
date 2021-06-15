@@ -26,7 +26,7 @@ const routes = [
         path: "/:lang(requests|keresek)/:page?", name: "requests", component: () => import(/* webpackChunkName: "requests" */ "@/pages/Requests"), meta: {auth: true}
     },
     {
-        path: "/:lang(forum|forum)/:discussion?/:topic?", name: "forum", component: () => import(/* webpackChunkName: "forum" */ "@/pages/Forum"), meta: {auth: true}
+        path: "/forum/:discussion?/:topic?", name: "forum", component: () => import(/* webpackChunkName: "forum" */ "@/pages/Forum"), meta: {auth: true}
     },
     {
         path: "/:lang(message-board|uzenofal)", name: "message-board", component: () => import(/* webpackChunkName: "message-board" */ "@/pages/MessageBoard"), meta: {auth: true}
@@ -96,7 +96,7 @@ const routes = [
         path: "/:lang(forgot|elfelejtett-jelszo)", name: "forgot", component: () => import(/* webpackChunkName: "forgot" */ "@/pages/auth/Forgot"), meta: {auth: false, only_guest: true}
     },
     {
-        path: "/:lang(forgot|elfelejtett-jelszo)/:token/:email", name: "forgot", component: () => import(/* webpackChunkName: "forgot" */ "@/pages/auth/Forgot"), meta: {auth: false, only_guest: true}
+        path: "/:lang(forgot|elfelejtett-jelszo)/:token/:email", name: "forgot-reset", component: () => import(/* webpackChunkName: "forgot-reset" */ "@/pages/auth/Forgot"), meta: {auth: false, only_guest: true}
     },
     /*
         AUTHENTICATED PAGES
@@ -114,7 +114,7 @@ const routes = [
 
      */
     {
-        path: "/admin", name: "admin", component: () => import(/* webpackChunkName: "admin" */ "@/pages/admin/Dashboard"), meta: {auth: true}
+        path: "/admin", name: "admin", component: () => import(/* webpackChunkName: "admin-home" */ "@/pages/admin/Dashboard"), meta: {auth: true}
     },
 
     {

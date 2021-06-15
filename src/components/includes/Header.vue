@@ -124,4 +124,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/css/config";
+
+.no-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 </style>

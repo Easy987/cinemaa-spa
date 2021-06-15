@@ -1,2 +1,3 @@
+Sitemap: https://www.cinemaa.cc/api/sitemap.xml
 User-agent: *
 Disallow:

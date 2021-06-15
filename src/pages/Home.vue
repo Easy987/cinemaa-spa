@@ -41,6 +41,7 @@
             :texts="this.$t('texts.welcome_text')"
             :title="this.$t('pages.home.information')"
         ></InformationSection>
+
         <Footer></Footer>
     </div>
 </template>
@@ -78,7 +79,6 @@ export default {
 
     created() {
         if(this.$route.params.admin) {
-            console.log('going');
             this.$router.go();
         }
 

@@ -23,8 +23,8 @@ class GeneralService {
             return response.data;
         });
     }
-    getChatMessages(roomID) {
-        return API.get(API_URL + "chat/" + roomID).then((response) => {
+    getChatMessages(roomID, count) {
+        return API.get(API_URL + "chat/" + roomID + '?count=' + count).then((response) => {
             return response.data;
         });
     }

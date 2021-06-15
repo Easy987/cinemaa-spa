@@ -262,10 +262,12 @@ export default {
     },
 
     created() {
-        this.$root.$emit('unreadRequestsReset');
+        if(this.loggedIn()) {
+            this.$root.$emit('unreadRequestsReset');
 
-        if((this.requests && Object.keys(this.requests).length === 0) || this.$route.params.page !== this.requests.meta.current_page) {
-            this.getRequests(this.$route.params.page);
+            if((this.requests && Object.keys(this.requests).length === 0) || this.$route.params.page !== this.requests.meta.current_page) {
+                this.getRequests(this.$route.params.page);
+            }
         }
     },
 

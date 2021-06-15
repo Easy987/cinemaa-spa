@@ -82,8 +82,8 @@ const movie = {
         }
     },
     actions: {
-        getMoviesInfo({commit}) {
-            return MovieService.getMoviesInfo().then((response) => {
+        getMoviesInfo({commit}, {admin}) {
+            return MovieService.getMoviesInfo(admin).then((response) => {
                 commit("setMoviesInfo", response);
                 return Promise.resolve(response);
             }).catch((error) => {
@@ -295,8 +295,8 @@ const movie = {
                 }
             );
         },
-        sendReport({commit}, {id, type, movie_id}) {
-            return MovieService.sendReport(id, type, movie_id).then(
+        sendReport({commit}, {id, type, movie_id, message}) {
+            return MovieService.sendReport(id, type, movie_id, message).then(
                 (response) => {
                     return Promise.resolve(response);
                 },

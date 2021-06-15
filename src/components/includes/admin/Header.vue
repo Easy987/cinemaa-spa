@@ -18,7 +18,7 @@
                     <b-dropdown-item :to="{ name: 'admin-comments'}" v-if="hasPermission('admin.comments.index')" exact exact-active-class="active">Kommentek</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'admin-forums'}" v-if="hasPermission('admin.forums.index')" exact exact-active-class="active">Fórumok</b-dropdown-item>
                     <b-dropdown-item :to="{ name: 'admin-sites'}" v-if="hasPermission('admin.sites.index')" exact exact-active-class="active">Stream oldalak</b-dropdown-item>
-                    <b-dropdown-item :to="{ name: 'home', params: {admin: '123'}}" exact exact-active-class="active">Vissza az oldalra</b-dropdown-item>
+                    <b-dropdown-item @click="exitAdmin">Vissza az oldalra</b-dropdown-item>
                 </b-dropdown>
                 <!-- end header menu btn -->
             </div>
@@ -110,9 +110,9 @@
                     </li>
 
                     <li class="sidebar__nav-item">
-                        <router-link :to="{ name: 'home', params: {admin: '123'}}" class="sidebar__nav-link" exact-active-class="sidebar__nav-link--active">
+                        <button @click="exitAdmin" class="sidebar__nav-link">
                             <i class="icon ion-ios-arrow-round-back"></i> <span>Vissza az oldalra</span>
-                        </router-link>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -123,12 +123,36 @@
 
 <script>
 import "@/assets/css/admin.scss";
+import {mapGetters} from "vuex";
 export default {
     name: "Header",
+
+    computed: {
+        ...mapGetters("movie", [
+            "moviesInfo",
+        ]),
+    },
 
     beforeMount() {
         if(this.loggedIn() && !this.hasPermission('admin.index')) {
             this.$router.push({name: 'home'});
+        }
+    },
+
+    methods: {
+        exitAdmin() {
+            window.location.href = process.env.VUE_APP_FRONTEND_URL;
+        }
+    },
+
+    created() {
+        if(this.loggedIn() && this.moviesInfo && (Object.keys(this.moviesInfo).length === 0 || !this.moviesInfo.genres)) {
+            this.loading = true;
+            this.$store.dispatch('movie/getMoviesInfo', {admin: true}).then(() => {
+                this.loading = false;
+            }).catch(() => {
+                this.loading = false;
+            });
         }
     }
 };

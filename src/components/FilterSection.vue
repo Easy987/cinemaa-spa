@@ -31,7 +31,7 @@
                                         </template>
                                         <template #default>
                                             <div v-scrollbar class="scroll-area">
-                                                <b-dropdown-item v-for="(genre, index) in genres" v-bind:key="index" @click.native.capture.stop="filterGenre(genre)" :class="{'active': filter.genres.some(x => x.key === genre.key)}" link-class="p-0">{{ genre.value }}</b-dropdown-item>
+                                                <b-dropdown-item v-for="(genre, index) in genres" v-bind:key="index" @click.native.capture.stop.prevent="filterGenre(genre)" :class="{'active': filter.genres.some(x => x.key === genre.key)}" link-class="p-0">{{ genre.value }}</b-dropdown-item>
                                             </div>
                                         </template>
                                     </b-dropdown>
@@ -49,7 +49,7 @@
                                         </template>
                                         <template #default>
                                             <div v-scrollbar class="scroll-area">
-                                                <b-dropdown-item v-for="(quality, index) in qualities" v-bind:key="index" @click.native.capture.stop="filterQuality(quality)" :class="{'active': filter.quality.some(x => x.key === quality.key)}" link-class="p-0">{{ quality.value }}</b-dropdown-item>
+                                                <b-dropdown-item v-for="(quality, index) in qualities" v-bind:key="index" @click.native.capture.stop.prevent="filterQuality(quality)" :class="{'active': filter.quality.some(x => x.key === quality.key)}" link-class="p-0">{{ quality.value }}</b-dropdown-item>
                                             </div>
                                         </template>
                                     </b-dropdown>
@@ -120,7 +120,7 @@ export default {
     data() {
         return {
             filtersShowing: true,
-            minYear: null,
+            minYear: 1900,
             imdbSlider: ["0.0", "10.0"],
             yearSlider: [(new Date().getFullYear()-20).toString(), new Date().getFullYear().toString()],
             filter: {
@@ -163,11 +163,6 @@ export default {
     },
 
     watch: {
-        'moviesInfo': {
-            handler: function(value) {
-                this.minYear = value.minYear;
-            },
-        },
         'filter': {
             handler() {
                 localStorage.setItem(this.type + '_filter', JSON.stringify(this.filter));
@@ -265,7 +260,7 @@ export default {
     max-height: 300px;
 }
 
-/*.active a {
+.filter__items .active a {
     color: #f77f00 !important;
-}*/
+}
 </style>

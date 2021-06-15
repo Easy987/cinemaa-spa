@@ -85,14 +85,28 @@
         "not_live": "Az adatok technikai részletek miatt nem valós időben frissülnek.",
         "other_users": "További felhasználók",
         "own_ranking": "Saját helyezés",
-        "uploaded_movies": "Feltöltött adatlapok",
-        "uploaded_links": "Beküldött linkek",
-        "movies_rated": "Értékelt adatlapok",
-        "watched_movies": "Látott adatlapok",
-        "comments": "Kommentek",
-        "message_board_comments": "Üzenőfal beszélgetések",
-        "posts": "Fórum posztok",
-        "sent_requests": "Elküldött kérések"
+        "titles": {
+            "uploaded_movies": "Feltöltött adatlapok",
+            "uploaded_links": "Beküldött linkek",
+            "movies_rated": "Értékelt adatlapok",
+            "watched_movies": "Megnézett adatlapok",
+            "viewed_movies": "Megtekintett adatlapok",
+            "comments": "Kommentek",
+            "message_board_comments": "Üzenőfal beszélgetések",
+            "posts": "Fórum posztok",
+            "sent_requests": "Elküldött kérések"
+        },
+        "descriptions": {
+            "uploaded_movies": "Feltöltött adatlapok darabszáma",
+            "uploaded_links": "Beküldött linkek darabszáma",
+            "movies_rated": "Értékelt adatlapok darabszáma",
+            "watched_movies": "Megnézett filmek/sorozatok darabszáma",
+            "viewed_movies": "Megtekintett adatlapok darabszáma",
+            "comments": "Kommentek darabszáma",
+            "message_board_comments": "Üzenőfal beszélgetések darabszáma",
+            "posts": "Fórum posztok darabszáma",
+            "sent_requests": "Elküldött kérések darabszáma"
+        }
     },
     "upload": {
         "imdb": "IMDB ID",
@@ -207,9 +221,9 @@
             "contact_us_here": "Ha bármilyen problémád, kérdésed van az oldallal kapcsolatban ezen az elérhetőségen tudsz velünk kapcsolatba lépni:"
         },
         "recommends": {
-            "premiers": "Premierek",
-            "dvd": "DVD megjelenések",
-            "series": "Sorozatok"
+            "premiers": "Premier filmek",
+            "dvd": "Premier filmek DVD megjelenések",
+            "series": "Premier sorozatok"
         },
         "movies": {
             "new-links": "Új linkek",
@@ -230,7 +244,7 @@
     "texts": {
         "welcome_text": [
             "Üdvözlünk oldalunkon!",
-            "A honlapon ingyenesen megtekinthető film adatlapokat találsz. Több ezer filmet a klasszikusoktól napjaink kasszasikeréig, kiegészítve a legnépszerűbb sorozatokkal! Segítséget és ismerkedési lehetőséget kínál a <a>fórumunk</a>, valamint a <a>belső levelezőrendszerünk</a>. A filmek adatlapját regisztráció nélkül is megtekintheted, de ha teljes közösségi élményre vágysz, egy pár másodperces regisztráció szükséges.",
+            "A honlapon ingyenesen megtekinthető film adatlapokat találsz. Több ezer filmet a klasszikusoktól napjaink kasszasikeréig, kiegészítve a legnépszerűbb sorozatokkal! Segítséget és ismerkedési lehetőséget kínál a <a href='/forum'>fórumunk</a>, valamint a <a href='/chat'>belső levelezőrendszerünk</a>. A filmek adatlapját regisztráció nélkül is megtekintheted, de ha teljes közösségi élményre vágysz, egy pár másodperces regisztráció szükséges.",
             "Kövess minket az <a target='_blank' href='https://www.instagram.com/cinemaa.cc/'>Instagram</a> oldalunkon és <a target='_blank' href='https://www.facebook.com/Cinemaacc-112261023817711'>Facebook</a> csatornánkon, hogy értesülhess az új filmmegjelenésekről, és a felkerült új tartalmakról. Jó szórakozást kívánunk!",
             "Várunk téged is a Cinemaa.cc-n! Éld át velünk Te is az online moziélményt!",
             "Ajánlott böngésző a legjobb minőség elérése érdekében a Google Chrome.",

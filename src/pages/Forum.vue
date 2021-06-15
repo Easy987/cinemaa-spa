@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <PageTitle :title="$t('nav.forum')"></PageTitle>
-        <div class="container pt-5">
+        <div v-if="loggedIn()" class="container pt-5">
             <Adsense
                 class="text-center pb-5"
                 data-ad-client="ca-pub-3890640160453569"
@@ -21,57 +21,60 @@
                                 </div>
                                 <h3>{{ selectedDiscussion ? selectedDiscussion.name : (selectedTopic ? selectedTopic.name : $t('pages.forum.forums')) }}</h3>
                             </div>
-
-                            <div v-if="mode === 0" class="forum-item" v-for="(discussion, index) in discussions" v-bind:key="index">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div class="forum-icon">
-                                            <font-awesome-icon icon="align-justify" size="3x" :class="{'seen': discussion.seen, 'not-seen': !discussion.seen}" />
+                            <div v-if="mode === 0">
+                                <div class="forum-item" v-for="(discussion, index) in discussions" v-bind:key="index">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="forum-icon">
+                                                <font-awesome-icon icon="align-justify" size="3x" :class="{'seen': discussion.seen, 'not-seen': !discussion.seen}" />
+                                            </div>
+                                            <router-link class="forum-item-title" @click="selectedDiscussion = discussion" :to="{ name: 'forum', params: { lang: $t('navTexts.forum'), discussion: discussion.id}}">{{ discussion.name }}</router-link>
+                                            <div class="forum-sub-title">{{ discussion.description }}
+                                            </div>
                                         </div>
-                                        <router-link class="forum-item-title" @click="selectedDiscussion = discussion" :to="{ name: 'forum', params: { lang: $t('navTexts.forum'), discussion: discussion.id}}">{{ discussion.name }}</router-link>
-                                        <div class="forum-sub-title">{{ discussion.description }}
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">{{ discussion.views }}</span>
+                                            <div>
+                                                <small>{{ $t('pages.forum.views') }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">{{ discussion.views }}</span>
-                                        <div>
-                                            <small>{{ $t('pages.forum.views') }}</small>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">{{ discussion.topics }}</span>
+                                            <div>
+                                                <small>{{ $t('pages.forum.topics') }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">{{ discussion.topics }}</span>
-                                        <div>
-                                            <small>{{ $t('pages.forum.topics') }}</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">{{ discussion.posts }}</span>
-                                        <div>
-                                            <small>{{ $t('pages.forum.posts') }}</small>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">{{ discussion.posts }}</span>
+                                            <div>
+                                                <small>{{ $t('pages.forum.posts') }}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="mode === 1" class="forum-item" v-for="(topic, index) in topics" v-bind:key="index">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="forum-icon">
-                                            <font-awesome-icon icon="align-justify" size="3x" :class="{'seen': topic.seen, 'not-seen': !topic.seen}" />
+                            <div v-if="mode === 1">
+                                <div class="forum-item" v-for="(topic, index) in topics" v-bind:key="index">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="forum-icon">
+                                                <font-awesome-icon icon="align-justify" size="3x" :class="{'seen': topic.seen, 'not-seen': !topic.seen}" />
+                                            </div>
+                                            <router-link class="forum-item-title" @click="selectedTopic = topic" :to="{ name: 'forum', params: { lang: $t('navTexts.forum'), discussion: $route.params.discussion, topic: topic.id}}">{{ topic.name }}</router-link>
+                                            <div style="color: #999;">{{ topic.description }}
+                                            </div>
                                         </div>
-                                        <router-link class="forum-item-title" @click="selectedTopic = topic" :to="{ name: 'forum', params: { lang: $t('navTexts.forum'), discussion: $route.params.discussion, topic: topic.id}}">{{ topic.name }}</router-link>
-                                        <div style="color: #999;">{{ topic.description }}
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">{{ topic.views }}</span>
+                                            <div>
+                                                <small>{{ $t('pages.forum.views') }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">{{ topic.views }}</span>
-                                        <div>
-                                            <small>{{ $t('pages.forum.views') }}</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 forum-info">
-                                        <span class="views-number">{{ topic.posts }}</span>
-                                        <div>
-                                            <small>{{ $t('pages.forum.posts') }}</small>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">{{ topic.posts }}</span>
+                                            <div>
+                                                <small>{{ $t('pages.forum.posts') }}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +84,29 @@
                                 <div class="inner-main-body p-2 p-sm-3 forum-content">
                                     <div class="card mb-2" v-for="(post, index) in selectedTopic.posts.data" v-bind:key="index">
                                         <div class="card-body">
-                                            <div class="media forum-item">
+                                            <div v-if="$screen.width <= 480" class="media forum-item row"> <!-- MOBILE -->
+                                                <a class="card-link m-auto" style="max-width: 100px;">
+                                                    <router-link class="d-block text-center" :to="{ name: 'user', params: { lang: $t('navTexts.user'), username: post.user.username}}">{{ post.user.username }}</router-link>
+                                                    <img :src="post.user.picture" class="rounded-circle" style="width: 100px; height: 100px" width="50" alt="User" />
+                                                    <small class="d-block text-center text-muted"><b><span :class="['role-' + post.user.role]">{{ $t('roles.' + post.user.role) }}</span></b></small>
+                                                    <div class="comments__rate">
+                                                        <button type="button" @click="toggleLike(post.id, 1)"><i :class="{'opacity-one': post.rated_by_user === 1}" class="icon ion-md-thumbs-up"></i>{{ post.like }}</button>
+
+                                                        <button type="button" @click="toggleLike(post.id, 0)">{{ post.dislike }}<i :class="{'opacity-one': post.rated_by_user === 0}" class="icon ion-md-thumbs-down"></i></button>
+                                                    </div>
+                                                </a>
+                                                <div class="media-body ml-3">
+                                                    <small class="text-muted">{{ post.created_at }}</small>
+                                                    <div class="mt-3 font-size-sm pb-5" v-html="post.message" style="color: white;">
+
+                                                    </div>
+                                                    <div class="comments__actions">
+
+                                                        <button v-if="loggedIn() && (post.user.username === user().username || hasPermission('comments.delete'))" type="button" @click="deletePost(post.id)"><i class="icon ion-ios-close"></i>{{ $t('base.delete') }}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else class="media forum-item">
                                                 <a class="card-link" style="max-width: 100px;">
                                                     <router-link class="d-block text-center" :to="{ name: 'user', params: { lang: $t('navTexts.user'), username: post.user.username}}">{{ post.user.username }}</router-link>
                                                     <img :src="post.user.picture" class="rounded-circle" style="width: 100px; height: 100px" width="50" alt="User" />
@@ -93,7 +118,7 @@
                                                     </div>
                                                 </a>
                                                 <div class="media-body ml-3">
-                                                    <small class="text-muted ml-2ű">{{ post.created_at }}</small>
+                                                    <small class="text-muted">{{ post.created_at }}</small>
                                                     <div class="mt-3 font-size-sm pb-5" v-html="post.message" style="color: white;">
 
                                                     </div>
@@ -620,22 +645,24 @@ export default {
     },
 
     created() {
-        if(this.$route.params.discussion && !this.$route.params.topic) {
-            this.getTopics(this.$route.params.discussion);
-        } else if(this.$route.params.topic) {
-            this.viewTopic(this.$route.params.topic);
-        } else {
-            this.mode = 0;
-            if(this.discussions && this.discussions.length === 0) {
-                this.$emit('loadingUpdated', true);
-                this.$store.dispatch('forum/getDiscussions').then((res) => {
-                    let count = 0;
-                    res.data.forEach((disc) => {
-                        count += disc.posts;
+        if(this.loggedIn()) {
+            if(this.$route.params.discussion && !this.$route.params.topic) {
+                this.getTopics(this.$route.params.discussion);
+            } else if(this.$route.params.topic) {
+                this.viewTopic(this.$route.params.topic);
+            } else {
+                this.mode = 0;
+                if(this.discussions && this.discussions.length === 0) {
+                    this.$emit('loadingUpdated', true);
+                    this.$store.dispatch('forum/getDiscussions').then((res) => {
+                        let count = 0;
+                        res.data.forEach((disc) => {
+                            count += disc.posts;
+                        });
+                        this.allPosts = count;
+                        this.$emit('loadingUpdated', false);
                     });
-                    this.allPosts = count;
-                    this.$emit('loadingUpdated', false);
-                });
+                }
             }
         }
     },

@@ -91,7 +91,7 @@
                 :load-first-room="false"
                 :show-add-room="true"
                 @fetch-messages="fetchMessages"
-                :messagesLoaded="messagesLoaded"
+                :messagesLoaded="allMessagesLoaded"
                 :roomsLoaded="roomsLoaded"
                 :show-files="false"
                 :show-send-icon="true"
@@ -219,6 +219,7 @@ export default {
             rooms: [],
             messages: [],
             messagesLoaded: true,
+            allMessagesLoaded: false,
             roomsLoaded: false,
             savedRooms: [],
             selectedRoom: {},
@@ -226,7 +227,8 @@ export default {
             roomName: "",
             chatOnlineUsers: [],
             searchTimeout: null,
-            selectedMessage: {}
+            selectedMessage: {},
+            messagesCount: 1,
         }
     },
 
@@ -385,23 +387,37 @@ export default {
                 this.$emit('loadingUpdated', false);
             });
         },
-        fetchMessages(data, options) {
+        fetchMessages(data) {
             if(this.messagesLoaded === true) {
                 this.selectedRoom = data.room;
                 this.messagesLoaded = false;
-                this.$store.dispatch('general/getChatMessages', {roomID: data.room.roomId}).then((res) => {
-                    const roomIndex = this.rooms.findIndex(x => x.roomId === data.room.roomId);
-                    let room = this.rooms[roomIndex];
-                    room.unreadCount = 0;
 
-                    if(room.lastMessage) {
-                        room.lastMessage.new = 0;
-                        room.lastMessage.seen = 1;
+                if(data.options && data.options.reset) {
+                    this.messagesCount = 1;
+                    this.messages = [];
+                    this.allMessagesLoaded = false;
+                } else {
+                    this.messagesCount += 1;
+                }
+
+                this.$store.dispatch('general/getChatMessages', {roomID: data.room.roomId, count: this.messagesCount}).then((res) => {
+                    if(res.data.length === 0) {
+                        this.allMessagesLoaded = true;
+                    } else {
+                        const roomIndex = this.rooms.findIndex(x => x.roomId === data.room.roomId);
+                        let room = this.rooms[roomIndex];
+                        room.unreadCount = 0;
+
+                        if(room.lastMessage) {
+                            room.lastMessage.new = 0;
+                            room.lastMessage.seen = 1;
+                        }
+
+                        this.$set(this.rooms, roomIndex, room);
+
+                        this.messages = [...res.data, ...this.messages];
                     }
 
-                    this.$set(this.rooms, roomIndex, room);
-
-                    this.messages = res.data;
                     this.messagesLoaded = true;
                 });
             }
@@ -554,7 +570,7 @@ export default {
         },
 
         typingMessage({ message, roomId }) {
-            console.log(roomId);
+            //console.log(roomId);
         },
     }
 };

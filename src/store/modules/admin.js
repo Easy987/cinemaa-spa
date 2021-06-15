@@ -404,7 +404,9 @@ const admin = {
             state.reports.data = state.reports.data.filter(x => x.id !== report);
         },
         deleteLink(state, {link}) {
-            state.links.data = state.links.data.filter(x => x.id !== link);
+            if(state.links.data) {
+                state.links.data = state.links.data.filter(x => x.id !== link);
+            }
         },
     },
 };

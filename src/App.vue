@@ -8,7 +8,7 @@
                    color="red"
                    loader="dots"></loading>
           <div class="chat-button" v-if="loggedIn() && this.$route.name && !this.$route.name.includes('admin')">
-              <router-link :to="{ name: 'chat'}">
+              <router-link :to="{ name: 'chat', params: { lang: this.$t('navTexts.chat')}}">
                   <font-awesome-layers>
                       <font-awesome-icon icon="comment" size="3x"/>
                       <span class="comment-badge" v-if="unreadMessages > 0">
@@ -18,7 +18,7 @@
               </router-link>
           </div>
           <div class="request-button" v-if="loggedIn() && hasPermission('links.submit') && this.$route.name && !this.$route.name.includes('admin')">
-              <router-link :to="{ name: 'requests'}">
+              <router-link :to="{ name: 'requests', params: { lang: this.$t('navTexts.requests')}}">
                   <font-awesome-layers>
                       <font-awesome-icon icon="bell" size="3x"/>
                       <span class="comment-badge" v-if="unreadRequests > 0">
@@ -152,7 +152,6 @@ export default {
 
     created()
     {
-        console.log('starting');
         console.log(process.env.NODE_ENV);
         this.$root.$on('unreadReset', () => {
             this.unreadMessages = 0;
@@ -162,9 +161,9 @@ export default {
             this.unreadRequests = 0;
         });
 
-        if(this.moviesInfo && Object.keys(this.moviesInfo).length === 0) {
+        if(this.loggedIn() && this.moviesInfo && (Object.keys(this.moviesInfo).length === 0)) {
             this.loading = true;
-            this.$store.dispatch('movie/getMoviesInfo').then(() => {
+            this.$store.dispatch('movie/getMoviesInfo', {admin: false}).then(() => {
                 this.loading = false;
             }).catch(() => {
                 this.loading = false;

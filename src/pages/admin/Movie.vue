@@ -30,10 +30,10 @@
                                         </div>
 
                                         <div class="col-12 col-md-6">
-                                            <div class="profile__group">
-                                                <label class="profile__label">Borítókép</label>
+                                            <div class="form__group">
+                                                <label class="form__label">Borítókép</label>
                                                 <b-form-file
-                                                    v-model="movie.poster"
+                                                    v-model="movie.poster_upload"
                                                     @change="onFileChange"
                                                 ></b-form-file>
                                             </div>
@@ -516,7 +516,7 @@ export default {
 
                 const ref = this;
                 reader.onloadend = function (e) {
-                    ref.movie.poster = reader.result;
+                    ref.movie.poster_upload = reader.result;
                 }
             } else {
                 this.$store.dispatch('user/sendToast', {
@@ -525,7 +525,7 @@ export default {
                     }
                 );
 
-                this.movie.poster = null;
+                this.movie.poster_upload = null;
             }
         },
         addVideo() {

@@ -12,7 +12,7 @@
                 </div>
                 <div class="movie-detail-flag" v-if="movie && movie.highest_quality && movie.highest_quality.length">
                     <div v-for="(name, index) in movie.highest_quality" v-bind:key="index">
-                        <img style="height: 20px; width: 40px;" :src="'/img/flags/'+name.name+'.png'">
+                        <img v-if="name.name !== 'other'" style="height: 20px; width: 40px;" :src="'/img/flags/'+name.name+'.png'">
                     </div>
                 </div>
                 <div class="movie-detail-buttons">
@@ -28,7 +28,7 @@
                     <router-link :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }">{{ movie.titles[$i18n.locale] }}</router-link>
                 </h3>
                 <span class="card__category">
-                    <a v-for="(genre, index) in movie.genres" v-bind:key="index">{{ $t('genres.' + genre.key) }}</a>
+                    <a href="#" v-for="(genre, index) in movie.genres" v-bind:key="index">{{ $t('genres.' + genre.key) }}</a>
                 </span>
             </div>
         </div>

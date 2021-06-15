@@ -94,9 +94,9 @@
                     <!-- player -->
                     <div class="col-12 col-lg-6 pr-0" :class="{'videoWrapper': this.$screen.width <= 480}">
                         <youtube v-if="movie.videos.length" :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
-                        <button v-if="movie.videos.length" v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="sendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
-                        <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                        <iframe class="float-right" :class="{'d-none': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <button v-if="movie.videos.length" v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="showSendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
+                        <iframe v-if="$screen.width > 480" class="float-right" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <iframe v-if="$screen.width > 480" class="float-right" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                     <!-- end player -->
                 </div>
@@ -110,12 +110,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mt-3 mb-3 text-center">
-                                <iframe :class="{'d-none': this.$screen.width > 480, 'd-inline-block': this.$screen.width <= 480}" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                                <iframe :class="{'d-none': this.$screen.width > 480, 'd-inline-block': this.$screen.width <= 480}" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                <iframe v-if="$screen.width <= 480" class="d-inline-block" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                <iframe v-if="$screen.width <= 480" class="d-inline-block" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
 
 
-                            <a v-if="movie" target="_blank" :href="this.forrasUrl + '/' + (this.loggedIn() ? this.user().secret_uuid : 'filmforras') + '/' + $i18n.locale + '/' + this.movie.id + '/'"><h4 class="content__title text-center" style="font-size: 25px;border: 3px solid orange;padding: 5px;"><b>{{$t('base.view_submitted_links')}}</b></h4></a>
+                            <a v-if="movie" target="_blank" :href="'http://adf.ly/23301405/' + this.forrasUrl + '/' + (this.loggedIn() ? this.user().secret_uuid : 'filmforras') + '/' + $i18n.locale + '/' + this.movie.id + '/'"><h4 class="content__title text-center" style="font-size: 25px;border: 3px solid orange;padding: 5px;"><b>{{$t('base.view_submitted_links')}}</b></h4></a>
                             <button @click="showSubmitLink" v-if="movie && loggedIn()" class="m-auto w-100 text-center"><h4 class="content__title text-center" style="font-size: 25px;"><b>{{$t('base.submit_link')}}</b></h4></button>
                             <Adsense
                                 class="text-center pt-3"
@@ -127,6 +127,18 @@
                             </Adsense>
                             <!-- content title -->
                             <!-- end content title -->
+
+                            <b-modal @ok="sendVideoReport" id="reportVideoModal" footer-bg-variant="dark" header-bg-variant="dark" header-text-variant="white" header-border-variant="0" footer-border-variant="0" footer-text-variant="white" body-text-variant="white" body-bg-variant="dark" :title="$t('base.report_video')">
+                                <div class="col-md-12 col-12">
+                                    <div class="row pt-3">
+                                        <div class="col-12 pl-0"><label class="form__label">{{ $t('base.comment') }}</label></div>
+                                        <div class="col-12 pl-0">
+                                            <input type="text" class="profile__input"
+                                                   v-model="message">
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-modal>
 
                             <b-modal @ok="submitLink" id="submitLinkModal" footer-bg-variant="dark" header-bg-variant="dark" header-text-variant="white" header-border-variant="0" footer-border-variant="0" footer-text-variant="white" body-text-variant="white" body-bg-variant="dark" :title="$t('base.submit_link')">
                                 <div class="col-md-12 col-12">
@@ -346,8 +358,8 @@ import Footer from "@/components/includes/Footer";
 import SlideUpDown from 'vue-slide-up-down'
 import {Youtube} from "vue-youtube";
 import MovieCard from "@/components/MovieCard";
-import { Picker } from 'emoji-mart-vue'
-import { Emoji } from 'emoji-mart-vue'
+import { Picker } from 'emoji-mart-vue';
+import { Emoji } from 'emoji-mart-vue';
 import VueGallery from 'vue-gallery';
 import StarRating from 'vue-star-rating'
 import {mapGetters} from "vuex";
@@ -381,6 +393,7 @@ export default {
                 comment: '',
             },
             links: [],
+            message: '',
         };
     },
 
@@ -543,10 +556,13 @@ export default {
         switchTab(num) {
             this.selectedPage = num;
         },
+        showSendVideoReport() {
+            this.$bvModal.show('reportVideoModal');
+        },
         sendVideoReport() {
             if(this.loggedIn()) {
                 this.$emit('loadingUpdated', true);
-                this.$store.dispatch('movie/sendReport', {id: this.movie.videos[0].id, type: 1, movie_id: this.movie.id}).then((comments) => {
+                this.$store.dispatch('movie/sendReport', {id: this.movie.videos[0].id, type: 1, movie_id: this.movie.id, message: this.message}).then((comments) => {
                     this.$store.dispatch('user/sendToast', {
                             message: this.$t('messages.report_successful'),
                             type: 'success'

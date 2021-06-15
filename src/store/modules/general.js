@@ -70,8 +70,8 @@ const general = {
                     return Promise.reject(error);
                 });
         },
-        getChatMessages({commit}, {roomID}) {
-            return GeneralService.getChatMessages(roomID)
+        getChatMessages({commit}, {roomID, count}) {
+            return GeneralService.getChatMessages(roomID, count)
                 .then((response) => {
                     return Promise.resolve(response);
                 })
