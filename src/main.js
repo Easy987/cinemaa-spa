@@ -13,6 +13,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import Echo from "laravel-echo";
 import {faFacebookF, faInstagram} from '@fortawesome/free-brands-svg-icons';
 import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome';
+import VueLazyload from 'vue-lazyload';
 import {
     faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight
     , faComment, faBell, faTimes, faBars, faArrowUp, faPlus, faAlignJustify,
@@ -30,6 +31,20 @@ const moment = require('moment')
 Vue.use(require('vue-moment'), {
     moment
 })
+
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    error: 'dist/error.png',
+    loading: '/img/loading.gif',
+    attempt: 3,
+    adapter: {
+        loaded ({ bindType, el, naturalHeight, naturalWidth, $parent, src, loading, error, Init }) {
+            console.log(el);
+            el.setAttribute('src', src);
+        },
+    },
+    listenEvents: ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
+});
 
 library.add(faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight
     , faComment, faBell, faTimes, faBars, faArrowUp, faPlus, faAlignJustify,

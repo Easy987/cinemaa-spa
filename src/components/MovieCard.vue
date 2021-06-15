@@ -2,7 +2,7 @@
     <div :class="classes">
         <div class="card">
             <div class="card__cover" :class="{'watched': movie.watched_by_user}">
-                <img :src="movie.poster" alt=""/>
+                <img v-lazy="movie.poster" alt=""/>
                 <router-link class="card__play" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }"><i class="icon ion-ios-play"></i></router-link>
                 <div class="movie-detail movie-detail-title">
                     <div class="w-100">{{ $t('base.year') }}: {{ movie.year }}</div>
@@ -12,7 +12,7 @@
                 </div>
                 <div class="movie-detail-flag" v-if="movie && movie.highest_quality && movie.highest_quality.length">
                     <div v-for="(name, index) in movie.highest_quality" v-bind:key="index">
-                        <img v-if="name.name !== 'other'" style="height: 20px; width: 40px;" :src="'/img/flags/'+name.name+'.png'">
+                        <img v-if="name.name !== 'other'" style="height: 20px; width: 40px;" v-lazy="'/img/flags/'+name.name+'.png'">
                     </div>
                 </div>
                 <div class="movie-detail-buttons">

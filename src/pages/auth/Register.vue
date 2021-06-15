@@ -65,6 +65,8 @@
 </template>
 
 <script>
+
+import "@/assets/css/styles.scss";
 export default {
     name: "Register",
 
