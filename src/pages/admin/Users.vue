@@ -22,7 +22,7 @@
                                             <span></span>
                                         </template>
                                         <template #default>
-                                            <div v-scrollbar class="scroll-area">
+                                            <div v-scrollbar="{alwaysShowTracks: true}" class="scroll-area">
                                                 <b-dropdown-item v-for="(role, index) in roles" v-bind:key="index" @click.native.capture.stop="filterRole(role)" :class="{'active': filter.role.some(x => x.key === role.key)}" link-class="p-0">{{ role.value }}</b-dropdown-item>
                                             </div>
                                         </template>
@@ -44,7 +44,7 @@
                     <!-- users -->
                     <div class="col-12">
                         <div class="main__table-wrap">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-area mb-2" v-scrollbar="{alwaysShowTracks: true}">
                                 <table class="main__table">
                                 <thead>
                                 <tr>
@@ -180,6 +180,8 @@ export default {
             if(url !== null) {
                 const page = url.split('=')[1];
 
+                this.$router.replace({ name: 'admin-users', params: { page: page}});
+
                 this.getUsers(page);
             }
         },
@@ -188,7 +190,9 @@ export default {
 
             let payload = {page: page || 1, filter: this.filter};
 
-            this.$store.dispatch('admin/getUsers', payload).then(() => {
+            this.$store.dispatch('admin/getUsers', payload).then((res) => {
+                this.$router.replace({ name: 'admin-users', params: { page: res.meta.current_page}});
+
                 this.$emit('loadingUpdated', false);
             });
         },
@@ -213,6 +217,8 @@ export default {
             });
         },
         searchUser() {
+            this.$router.replace({ name: 'admin-users', params: { page: 1}});
+
             this.getUsers(1);
         },
         filterRole(role) {
@@ -221,6 +227,8 @@ export default {
             } else {
                 this.filter.role.push(role);
             }
+
+            this.$router.replace({ name: 'admin-users', params: { page: 1}});
         },
         deleteUser(user) {
             this.$emit('loadingUpdated', true);

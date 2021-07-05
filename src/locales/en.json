@@ -79,7 +79,8 @@
         "sender": "Sender",
         "cookie_info": "Our website uses cookies during its operation to provide you with the best user experience. You can disable the use of cookies at any time!",
         "ok": "OK",
-        "comment": "Comment"
+        "comment": "Comment",
+        "send_date": "Submit date"
     },
     "ladder": {
         "not_live": "The leaderboard is refreshed once a day.",

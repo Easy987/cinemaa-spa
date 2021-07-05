@@ -64,7 +64,6 @@
         "mark_to_be_watched": "Megnézendőnek jelölés",
         "chat_create_room": "Csoport létrehozása",
         "about": "Magamról",
-        "report_video": "Előzetes bejelentése",
         "need_login": "A funkció használatához be kell jelentkezned.",
         "room_info": "Csoport tulajdonságai",
         "remove_room": "Csoport törlése",
@@ -79,7 +78,8 @@
         "sender": "Beküldő",
         "cookie_info": "Weboldalunk sütiket (cookie) használ működése folyamán, hogy a legjobb felhasználói élményt nyújthassa Önnek. A sütik használatát bármikor letilthatja!",
         "ok": "OK",
-        "comment": "Megjegyzés"
+        "comment": "Megjegyzés",
+        "send_date": "Beküldés dátuma"
     },
     "ladder": {
         "not_live": "Az adatok technikai részletek miatt nem valós időben frissülnek.",
@@ -222,7 +222,7 @@
         },
         "recommends": {
             "premiers": "Premier filmek",
-            "dvd": "Premier filmek DVD megjelenések",
+            "dvd": "Premier Filmek DVD megjelenése",
             "series": "Premier sorozatok"
         },
         "movies": {

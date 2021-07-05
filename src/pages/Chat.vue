@@ -494,10 +494,8 @@ export default {
                 'replyMessage': data.replyMessage,
                 '_id': messageID
             };
-            const newGroup = this.messages === undefined;
-            if(this.messages === undefined) {
-                this.messages = [];
-            }
+
+            const newGroup = this.selectedRoom.users.length === 1;
 
             this.messages.push(message);
 

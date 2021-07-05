@@ -3,6 +3,7 @@
         <div class="card">
             <div class="card__cover" :class="{'watched': movie.watched_by_user}">
                 <img :src="movie.poster" alt=""/>
+
                 <router-link class="card__play" :to="{ name: movie.type === 0 ? 'movie' : 'serie', params: { lang: $t('navTexts.' + (movie.type === 0 ? 'movie' : 'serie')), slug: movie.slugs[$i18n.locale], year: movie.year, length: movie.length} }"><i class="icon ion-ios-play"></i></router-link>
                 <div class="movie-detail movie-detail-title">
                     <div class="w-100">{{ $t('base.year') }}: {{ movie.year }}</div>

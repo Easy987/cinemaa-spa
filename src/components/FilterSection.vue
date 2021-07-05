@@ -11,7 +11,7 @@
 
                                     <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
                                         <template #button-content>
-                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')">
+                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')" :class="{'selected': filter.name !== '' && filter.name !== undefined}">
                                             <span></span>
                                         </template>
                                         <template #default>
@@ -26,11 +26,11 @@
 
                                     <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
                                         <template #button-content>
-                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')">
+                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')" :class="{'selected': filter.genres.length > 0}">
                                             <span></span>
                                         </template>
                                         <template #default>
-                                            <div v-scrollbar class="scroll-area">
+                                            <div v-scrollbar="{alwaysShowTracks: true}" class="scroll-area">
                                                 <b-dropdown-item v-for="(genre, index) in genres" v-bind:key="index" @click.native.capture.stop.prevent="filterGenre(genre)" :class="{'active': filter.genres.some(x => x.key === genre.key)}" link-class="p-0">{{ genre.value }}</b-dropdown-item>
                                             </div>
                                         </template>
@@ -44,12 +44,30 @@
 
                                     <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
                                         <template #button-content>
-                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')">
+                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')" :class="{'selected': filter.quality.length > 0}">
                                             <span></span>
                                         </template>
                                         <template #default>
-                                            <div v-scrollbar class="scroll-area">
+                                            <div v-scrollbar="{alwaysShowTracks: true}" class="scroll-area">
                                                 <b-dropdown-item v-for="(quality, index) in qualities" v-bind:key="index" @click.native.capture.stop.prevent="filterQuality(quality)" :class="{'active': filter.quality.some(x => x.key === quality.key)}" link-class="p-0">{{ quality.value }}</b-dropdown-item>
+                                            </div>
+                                        </template>
+                                    </b-dropdown>
+                                </div>
+                                <!-- end filter item -->
+
+                                <!-- filter item -->
+                                <div class="filter__item" id="filter__language">
+                                    <span class="filter__item-label">{{ this.$t('base.language').toUpperCase() }}:</span>
+
+                                    <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
+                                        <template #button-content>
+                                            <input type="button" class="filter__item-btn" :value="$t('base.filter')" :class="{'selected': filter.language.length > 0}">
+                                            <span></span>
+                                        </template>
+                                        <template #default>
+                                            <div v-scrollbar="{alwaysShowTracks: true}" class="scroll-area">
+                                                <b-dropdown-item v-for="(language, index) in languages" v-bind:key="index" @click.native.capture.stop.prevent="filterLanguage(language)" :class="{'active': filter.language.some(x => x.key === language.key)}" link-class="p-0">{{ language.value }}</b-dropdown-item>
                                             </div>
                                         </template>
                                     </b-dropdown>
@@ -62,7 +80,7 @@
 
                                     <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
                                         <template #button-content>
-                                            <input type="button" class="filter__item-btn" :value="filter.imdb.length === 0 ? $t('base.filter') : filter.imdb[0] + ' - ' + filter.imdb[1]">
+                                            <input type="button" class="filter__item-btn" :value="filter.imdb.length === 0 ? $t('base.filter') : filter.imdb[0] + ' - ' + filter.imdb[1]" :class="{'selected': filter.imdb.length > 0}">
                                             <span></span>
                                         </template>
                                         <template #default>
@@ -78,7 +96,7 @@
 
                                     <b-dropdown menu-class="filter__item-menu" no-caret variant="secondary shadow-none bg-transparent border-0 filter__item-btn pl-0">
                                         <template #button-content>
-                                            <input type="button" class="filter__item-btn" :value="yearFilter">
+                                            <input type="button" class="filter__item-btn" :value="yearFilter" :class="{'selected': yearFilter.includes('-')}">
                                             <span></span>
                                         </template>
                                         <template #default>
@@ -106,9 +124,6 @@
 <script>
 import VueSlider from "vue-slider-component";
 import {mapGetters} from "vuex";
-import i18n from "@/i18n";
-import store from "@/store";
-import router from "@/router";
 
 export default {
     name: "FilterSection",
@@ -126,6 +141,7 @@ export default {
             filter: {
                 genres: [],
                 quality: [],
+                language: [],
                 imdb: [],
                 year: ["", ""],
                 name: '',
@@ -155,6 +171,12 @@ export default {
             }
         },
         qualities: {
+            type: Array,
+            default: () => {
+                return [];
+            }
+        },
+        languages: {
             type: Array,
             default: () => {
                 return [];
@@ -241,6 +263,16 @@ export default {
             }
 
             localStorage.setItem(this.type + '_filter', JSON.stringify(this.filter));
+        },
+
+        filterLanguage(language) {
+            if(this.filter.language.filter(x => x.key === language.key).length > 0) {
+                this.filter.language.splice(this.filter.language.indexOf(language), 1);
+            } else {
+                this.filter.language.push(language);
+            }
+
+            localStorage.setItem(this.type + '_filter', JSON.stringify(this.filter));
         }
     },
 
@@ -261,6 +293,10 @@ export default {
 }
 
 .filter__items .active a {
+    color: #f77f00 !important;
+}
+
+.selected {
     color: #f77f00 !important;
 }
 </style>

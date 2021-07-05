@@ -8,6 +8,7 @@
                 data-ad-client="ca-pub-3890640160453569"
                 data-ad-slot="2375609994"
                 data-ad-format="auto"
+                :data-ad-region="randomNumber(0, 200).toString()"
                 data-full-width-responsive="true">
             </Adsense>
             <section class="content" style="padding-bottom: 0px; margin-top: 5em !important;">
@@ -75,6 +76,7 @@
                 data-ad-client="ca-pub-3890640160453569"
                 data-ad-slot="9059882935"
                 data-ad-format="auto"
+                :data-ad-region="randomNumber(0, 200).toString()"
                 data-full-width-responsive="true">
             </Adsense>
         </div>

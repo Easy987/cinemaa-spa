@@ -29,7 +29,7 @@
                                             <span></span>
                                         </template>
                                         <template #default>
-                                            <div v-scrollbar class="scroll-area">
+                                            <div v-scrollbar="{alwaysShowTracks: true}" class="scroll-area">
                                                 <b-dropdown-item v-for="(role, index) in roles" v-bind:key="index" @click.native.capture.stop="filterRole(role)" :class="{'active': filter.role.some(x => x.key === role.key)}" link-class="p-0">{{ role.value }}</b-dropdown-item>
                                             </div>
                                         </template>
@@ -80,6 +80,16 @@ export default {
         },
     },
 
+    watch: {
+        'filter': {
+            handler() {
+                localStorage.setItem('users_filter', JSON.stringify(this.filter));
+                this.$forceUpdate()
+            },
+            deep: true,
+        }
+    },
+
     methods: {
         sendFilter() {
             this.$emit('filter', this.filter);
@@ -91,6 +101,15 @@ export default {
             } else {
                 this.filter.role.push(role);
             }
+
+            localStorage.setItem('users_filter', JSON.stringify(this.filter));
+        }
+    },
+
+    beforeMount() {
+        const filter = localStorage.getItem('users_filter');
+        if(filter && filter.length > 0) {
+            this.filter = JSON.parse(filter);
         }
     }
 };

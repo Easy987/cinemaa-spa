@@ -12,6 +12,7 @@
                     data-ad-client="ca-pub-3890640160453569"
                     data-ad-slot="6132167382"
                     data-ad-format="auto"
+                    :data-ad-region="'page-' + randomNumber(0, 200).toString()"
                     data-full-width-responsive="true">
                 </Adsense>
                 <div class="row">
@@ -115,7 +116,7 @@
                             </div>
 
 
-                            <a v-if="movie" target="_blank" :href="'http://adf.ly/23301405/' + this.forrasUrl + '/' + (this.loggedIn() ? this.user().secret_uuid : 'filmforras') + '/' + $i18n.locale + '/' + this.movie.id + '/'"><h4 class="content__title text-center" style="font-size: 25px;border: 3px solid orange;padding: 5px;"><b>{{$t('base.view_submitted_links')}}</b></h4></a>
+                            <a v-if="movie" target="_blank" :href="/*'http://adf.ly/23301405/' + */this.forrasUrl + '/' + (this.loggedIn() ? this.user().secret_uuid : 'filmforras') + '/' + $i18n.locale + '/' + this.movie.id + '/'"><h4 class="content__title text-center" style="font-size: 25px;border: 3px solid orange;padding: 5px;"><b>{{$t('base.view_submitted_links')}}</b></h4></a>
                             <button @click="showSubmitLink" v-if="movie && loggedIn()" class="m-auto w-100 text-center"><h4 class="content__title text-center" style="font-size: 25px;"><b>{{$t('base.submit_link')}}</b></h4></button>
                             <Adsense
                                 class="text-center pt-3"
@@ -123,6 +124,7 @@
                                 data-ad-client="ca-pub-3890640160453569"
                                 data-ad-slot="3176182629"
                                 data-ad-format="auto"
+                                :data-ad-region="'page-' + randomNumber(0, 200).toString()"
                                 data-full-width-responsive="true">
                             </Adsense>
                             <!-- content title -->
@@ -250,6 +252,7 @@
                             data-ad-client="ca-pub-3890640160453569"
                             data-ad-slot="5275269330"
                             data-ad-format="auto"
+                            :data-ad-region="'page-' + randomNumber(0, 200).toString()"
                             data-full-width-responsive="true">
                         </Adsense>
                         <!-- content tabs -->
@@ -331,6 +334,7 @@
                             data-ad-client="ca-pub-3890640160453569"
                             data-ad-slot="4250247688"
                             data-ad-format="auto"
+                            :data-ad-region="'page-' + randomNumber(0, 200).toString()"
                             data-full-width-responsive="true">
                         </Adsense>
                         <div class="row" v-if="movie">

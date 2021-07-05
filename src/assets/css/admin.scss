@@ -7,6 +7,16 @@
 @import 'ionicons';
 
 
+
+.scrollbar-track-x {
+  position: fixed !important;
+  height: 25px;
+}
+
+.scrollbar-thumb-x {
+  height: 25px;
+}
+
 .custom-file-label {
   background-color: rgba(210, 201, 255, 0.04) !important;
   border: none;

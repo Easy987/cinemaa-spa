@@ -27,7 +27,8 @@
                   </font-awesome-layers>
               </router-link>
           </div>
-          <router-view :key="$route.fullPath" @loadingUpdated="loadingUpdated"/>
+          <router-view v-if="this.$route.name && this.$route.name.includes('admin')" @loadingUpdated="loadingUpdated"/>
+          <router-view v-else :key="$route.fullPath" @loadingUpdated="loadingUpdated"/>
       </div>
       <footer>
           <cookie-law theme="cinemaa" :buttonText="$t('base.ok')">

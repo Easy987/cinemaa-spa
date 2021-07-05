@@ -48,10 +48,11 @@
                     <!-- movies -->
                     <div class="col-12">
                         <div class="main__table-wrap">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-area mb-2" v-scrollbar="{alwaysShowTracks: true, thumbMinSize: 50}">
                                 <table class="main__table">
                                 <thead>
                                 <tr>
+                                    <th>KIJELÖLÉS</th>
                                     <th>ID</th>
                                     <th>NÉV</th>
                                     <th>ÉVJÁRAT</th>
@@ -68,6 +69,11 @@
 
                                 <tbody>
                                     <tr v-for="(movie, index) in movies.data" v-bind:key="index">
+                                        <td>
+                                            <div class="main__table-text">
+                                                <b-checkbox v-model="movie.selected" @input="movieChecked($event, movie.id)"></b-checkbox>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="main__table-text" v-b-popover.hover.bottom="''" :title="movie.id">X</div>
                                         </td>
@@ -122,6 +128,17 @@
                     </div>
                     <!-- end movies -->
 
+                    <div class="col-12 pl-3 pb-3">
+                        <b-checkbox v-model="selectedAll" @input="checkAll($event)" style="color: white;">Összes kijelölése</b-checkbox>
+                    </div>
+                    <br />
+
+                    <div class="col-12 pl-0" v-if="selectedMovies.filter(x => x.value === true).length > 0">
+                        <button @click="deleteMovies()" class="btn btn-secondary ml-3">Adatlapok törlése</button>
+                    </div>
+
+
+
                     <!-- paginator -->
                     <div class="col-12">
                         <div class="paginator-wrap">
@@ -136,12 +153,13 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import Header from "@/components/includes/admin/Header";
 import Navigator from "@/components/pageComponents/Navigator";
 import {mapGetters} from "vuex";
 
 export default {
-    name: "Admin",
+    name: "AdminUsers",
     components: {
         Header,
         Navigator
@@ -167,7 +185,9 @@ export default {
                 { value: 0, text: 'Megerősítésre vár' },
                 { value: 1, text: 'Nyilvános' },
                 { value: 2, text: 'Rejtett' },
-            ]
+            ],
+            selectedMovies: [],
+            selectedAll: false,
         };
     },
 
@@ -178,6 +198,53 @@ export default {
     },
 
     methods: {
+        deleteMovies(){
+            this.$emit('loadingUpdated', true);
+            this.$api.delete('/admin/moviesMultiple?ids=' + JSON.stringify(this.selectedMovies)).then(() => {
+                this.movies.data = this.movies.data.filter(x => !this.selectedMovies.find(y => y.id === x.id));
+                this.movies.data.forEach((movie) => {
+                    movie.selected = false;
+                });
+
+                this.selectedMovies = [];
+                this.selectedAll = false;
+
+                this.$store.dispatch('user/sendToast', {
+                        message: 'Adatlapok sikeresen törölve.',
+                        type: 'success'
+                    }
+                );
+
+                this.getMovies(this.$route.params.page);
+
+                this.$emit('loadingUpdated', false);
+            }).catch(() => {
+                this.$emit('loadingUpdated', false);
+            });
+        },
+        checkAll(event) {
+            if(event === false) {
+                Vue.set(this.selectedMovies, []);
+
+                this.movies.data.forEach((movie) => {
+                    movie.selected = false;
+                });
+            } else {
+                let objects = [];
+                this.movies.data.forEach((movie) => {
+                    movie.selected = true;
+                    objects.push({id: movie.id, value: event});
+                    Vue.set(this.selectedMovies, objects);
+                });
+            }
+        },
+        movieChecked(event, id) {
+            if(this.selectedMovies.filter(x => x.id === id).length > 0) {
+                this.selectedMovies = this.selectedMovies.filter(x => x.id !== id);
+            } else {
+                this.selectedMovies.push({id: id, value: event});
+            }
+        },
         getMovieStatus(status) {
             switch(status){
                 case '0':
@@ -192,6 +259,8 @@ export default {
             if(url !== null) {
                 const page = url.split('=')[1];
 
+                this.$router.replace({ name: 'admin-movies', params: { page: page}});
+
                 this.getMovies(page);
             }
         },
@@ -200,7 +269,9 @@ export default {
 
             let payload = {page: page || 1, filter: this.filter};
 
-            this.$store.dispatch('admin/getMovies', payload).then(() => {
+            this.$store.dispatch('admin/getMovies', payload).then((res) => {
+                this.$router.replace({ name: 'admin-movies', params: { page: res.meta.current_page}});
+
                 this.$emit('loadingUpdated', false);
             });
         },
@@ -236,6 +307,8 @@ export default {
             });
         },
         searchMovie() {
+            this.$router.replace({ name: 'admin-movies', params: { page: 1}});
+
             this.getMovies(1);
         },
         deleteMovie(movie) {

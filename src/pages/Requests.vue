@@ -11,6 +11,12 @@
                             <input id="vac-icon-sendd" :disabled="true" required type="text" name="room_name" v-model="selectedRequest.user.username" class="profile__input">
                         </div>
                     </div>
+                    <div class="col-12" v-if="!uploadingRequest">
+                        <div class="profile__group" v-if="selectedRequest.user">
+                            <label class="profile__label" for="rooam_name">{{ $t('base.send_date') }}</label>
+                            <input id="vac-icon-sendd" :disabled="true" required type="text" name="room_name" v-model="selectedRequest.created_at" class="profile__input">
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="profile__group">
                             <label class="profile__label" for="room_nsame">{{ $t('base.title') }}</label>
@@ -30,7 +36,7 @@
                     </div>
                 </div>
                 <template #modal-footer>
-                    <b-button v-if="hasPermission('comments.delete')" size="xl" variant="danger" @click="deleteRequest">
+                    <b-button v-if="!uploadingRequest && hasPermission('comments.delete')" size="xl" variant="danger" @click="deleteRequest">
                         {{ $t('base.delete') }}
                     </b-button>
                     <b-button size="xl" variant="success" @click="submitRequest">
@@ -61,6 +67,7 @@
                                 data-ad-client="ca-pub-3890640160453569"
                                 data-ad-slot="2375609994"
                                 data-ad-format="auto"
+                                :data-ad-region="randomNumber(0, 200).toString()"
                                 data-full-width-responsive="true">
                             </Adsense>
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm pt-3">
@@ -70,6 +77,7 @@
                                             <img :src="request.user.picture" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle mb-3">
                                             <h5 class="card-title" style="color: white !important;">{{ request.user.username }}</h5>
                                             <p class="text-secondary mb-1">{{ $t('base.title') }}: <b style="color: orange;">{{ request.title }}</b></p>
+                                            <p class="text-secondary mb-1">{{ $t('base.send_date') }}: <b style="color: orange;">{{ request.created_at }}</b></p>
                                         </div>
                                         <div class="card-footer">
                                             <button @click="selectedRequest = request; $bvModal.show('requestModal'); uploadingRequest = false;" class="btn btn-sm btn-block has-icon">
@@ -145,6 +153,7 @@
                             data-ad-client="ca-pub-3890640160453569"
                             data-ad-slot="9059882935"
                             data-ad-format="auto"
+                            :data-ad-region="randomNumber(0, 200).toString()"
                             data-full-width-responsive="true">
                         </Adsense>
                     </div>

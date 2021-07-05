@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <FilterSection :type="this.type" :genres="this.getStaticOptions('genres')" :qualities="this.getStaticOptions('qualities')" @filter="filter"></FilterSection>
+        <FilterSection :type="this.type" :genres="this.getStaticOptions('genres')" :qualities="this.getStaticOptions('qualities')" :languages="this.getStaticOptions('languageTypes')" @filter="filter"></FilterSection>
         <section v-if="subType">
             <div class="container">
                 <div class="row">
@@ -44,6 +44,7 @@
             data-ad-client="ca-pub-3890640160453569"
             data-ad-slot="2375609994"
             data-ad-format="auto"
+            :data-ad-region="this.type + randomNumber(0, 200)"
             data-full-width-responsive="true">
         </Adsense>
         <CatalogSection @refresh="refresh" :type="this.type" :movies="this.movies" :genres="this.getStaticOptions('genres')" :qualities="this.getStaticOptions('qualities')" @navigation="navigation"></CatalogSection>
@@ -52,6 +53,7 @@
             data-ad-client="ca-pub-3890640160453569"
             data-ad-slot="9059882935"
             data-ad-format="auto"
+            :data-ad-region="this.type + randomNumber(0, 200)"
             data-full-width-responsive="true">
         </Adsense>
         <Footer></Footer>
@@ -125,7 +127,8 @@ export default {
         },
         filter(value) {
             this.filters = value;
-            this.getMovies(this.$route.params.page, this.selectedPage);
+            this.$router.push({ name: this.type, params: { lang: this.$t('navTexts.' + this.type).toString(), page: 1, type: this.$t('navTexts.' + this.selectedPage).toString()}})
+            this.getMovies(1, this.selectedPage);
         },
         navigation(url) {
             if(url !== null) {

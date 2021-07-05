@@ -34,7 +34,7 @@
                     <!-- links -->
                     <div class="col-12">
                         <div class="main__table-wrap">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-area mb-2" v-scrollbar="{alwaysShowTracks: true}">
                                 <table class="main__table">
                                 <thead>
                                 <tr>
@@ -122,7 +122,12 @@
                     </div>
                     <!-- end links -->
 
-                    <div v-if="selectedLinks.filter(x => x.value === true).length > 0">
+                    <div class="col-12 pl-3 pb-3">
+                        <b-checkbox v-model="selectedAll" @input="checkAll($event)" style="color: white;">Összes kijelölése</b-checkbox>
+                    </div>
+                    <br />
+
+                    <div class="col-12 pl-0" v-if="selectedLinks.filter(x => x.value === true).length > 0">
                         <button @click="deleteLinks()" class="btn btn-secondary ml-3">Linkek törlése</button>
                     </div>
 
@@ -140,6 +145,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import Header from "@/components/includes/admin/Header";
 import Navigator from "@/components/pageComponents/Navigator";
 import {mapGetters} from "vuex";
@@ -171,7 +177,8 @@ export default {
                 { value: 2, text: 'Rejtett' },
                 { value: 3, text: 'Rendszer által kiszűrt' },
             ],
-            selectedLinks: []
+            selectedLinks: [],
+            selectedAll: false,
         };
     },
 
@@ -182,6 +189,22 @@ export default {
     },
 
     methods: {
+        checkAll(event) {
+            if(event === false) {
+                Vue.set(this.selectedLinks, []);
+
+                this.links.data.forEach((link) => {
+                    link.selected = false;
+                });
+            } else {
+                let objects = [];
+                this.links.data.forEach((link) => {
+                    link.selected = true;
+                    objects.push({id: link.id, value: event});
+                    Vue.set(this.selectedLinks, objects);
+                });
+            }
+        },
         deleteLinks(){
             this.$emit('loadingUpdated', true);
             this.$api.delete('/admin/linksMultiple?ids=' + JSON.stringify(this.selectedLinks)).then(() => {
@@ -189,6 +212,9 @@ export default {
                 this.links.data.forEach((link) => {
                     link.selected = false;
                 });
+
+                this.selectedLinks = [];
+                this.selectedAll = false;
 
                 this.$store.dispatch('user/sendToast', {
                         message: 'Linkek sikeresen törölve.',
@@ -227,6 +253,8 @@ export default {
             if(url !== null) {
                 const page = url.split('=')[1];
 
+                this.$router.replace({ name: 'admin-links', params: { page: page}});
+
                 this.getLinks(page);
             }
         },
@@ -239,7 +267,9 @@ export default {
 
             let payload = {page: page || 1, filter: this.filter};
 
-            this.$store.dispatch('admin/getLinks', payload).then(() => {
+            this.$store.dispatch('admin/getLinks', payload).then((res) => {
+                this.$router.replace({ name: 'admin-links', params: { page: res.meta.current_page}});
+
                 this.$emit('loadingUpdated', false);
             });
         },
@@ -306,7 +336,6 @@ export default {
             handler: function() {
                 this.searchLink();
             },
-            immediate: true,
             deep: true
         },
     },

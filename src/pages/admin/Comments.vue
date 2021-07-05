@@ -17,7 +17,7 @@
                     <!-- comments -->
                     <div class="col-12">
                         <div class="main__table-wrap">
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll-area mb-2" v-scrollbar="{alwaysShowTracks: true}">
                                 <table class="main__table">
                                 <thead>
                                 <tr>

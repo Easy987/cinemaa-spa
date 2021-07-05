@@ -36,19 +36,35 @@ export default {
         title: {
             type: String,
             default: '',
+        },
+        filters: {
+            type: Object,
+            default: function() {
+                const filter = localStorage.getItem('users_filter');
+
+                if(filter && filter.length > 0) {
+                    return JSON.parse(filter);
+                }
+
+                return {};
+            }
         }
     },
 
     data() {
         return {
-            filters: {},
+
         };
     },
 
     methods: {
         filter(value) {
             this.filters = value;
-            this.getUsers(1);
+            if(this.$route.params.page === 1 || this.$route.params.page === undefined) {
+                this.getUsers(1);
+            } else {
+                this.$router.push({ name: this.type, params: { lang: this.$t('navTexts.users').toString(), page: 1}})
+            }
         },
         navigation(url) {
             if(url !== null) {

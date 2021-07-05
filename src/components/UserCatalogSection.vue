@@ -8,6 +8,7 @@
                         data-ad-client="ca-pub-3890640160453569"
                         data-ad-slot="2375609994"
                         data-ad-format="auto"
+                        :data-ad-region="randomNumber(0, 200).toString()"
                         data-full-width-responsive="true">
                     </Adsense>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm pt-5">
@@ -96,6 +97,7 @@
                         data-ad-client="ca-pub-3890640160453569"
                         data-ad-slot="9059882935"
                         data-ad-format="auto"
+                        :data-ad-region="randomNumber(0, 200).toString()"
                         data-full-width-responsive="true">
                     </Adsense>
                 </div>

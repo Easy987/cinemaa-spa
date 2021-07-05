@@ -4,7 +4,15 @@ import router from "@/router";
 import store from "@/store";
 import {BootstrapVue } from "bootstrap-vue";
 import i18n from "./i18n";
-import {getStaticOptions, getMovieCardRatingClass, hasPermission, loggedIn, user, capitalize} from "@/utils/helper";
+import {
+    getStaticOptions,
+    getMovieCardRatingClass,
+    hasPermission,
+    loggedIn,
+    user,
+    capitalize,
+    randomNumber
+} from "@/utils/helper";
 import VueToast from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import VueI18n from "vue-i18n";
@@ -58,6 +66,7 @@ Vue.mixin({
         hasPermission,
         getStaticOptions,
         capitalize,
+        randomNumber
     }),
 });
 
