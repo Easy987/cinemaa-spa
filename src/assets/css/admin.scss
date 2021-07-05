@@ -7,14 +7,23 @@
 @import 'ionicons';
 
 
-
 .scrollbar-track-x {
   position: fixed !important;
-  height: 25px;
+  height: 20px !important;
+  left: 0px !important;
+}
+
+
+@media (min-width: 768px) {
+  .scrollbar-track-x {
+    position: fixed !important;
+    height: 20px !important;
+    left: 280px !important;
+  }
 }
 
 .scrollbar-thumb-x {
-  height: 25px;
+  height: 20px !important;
 }
 
 .custom-file-label {
