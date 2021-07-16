@@ -12,7 +12,7 @@
                     data-ad-client="ca-pub-3890640160453569"
                     data-ad-slot="6132167382"
                     data-ad-format="auto"
-                    :data-ad-region="'page-' + randomNumber(0, 200).toString()"
+                    :data-ad-region="'page' + randomNumber(0, 200).toString()"
                     data-full-width-responsive="true">
                 </Adsense>
                 <div class="row">
@@ -97,7 +97,7 @@
                         <youtube v-if="movie.videos.length" :fitParent="this.$screen.width <= 480" :video-id="movie.videos[0].youtube_id"></youtube>
                         <button v-if="movie.videos.length" v-b-popover.hover.bottom="''" :title="loggedIn() ? $t('base.report_video') : $t('base.need_login')" class="text-right w-100 pswp__button" :class="{'text-center': this.$screen.width <= 480}" @click="showSendVideoReport"><h5 style="color: rgba(255, 255, 255, 0.8)">{{ $t('base.report_video') }}</h5></button>
                         <iframe v-if="$screen.width > 480" class="float-right" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                        <iframe v-if="$screen.width > 480" class="float-right" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <a v-if="$screen.width > 480" class="float-right pr-1" target="_blank" href="https://www.facebook.com/Cinemaacc-112261023817711"><img width="85" alt="Like" src="@/../public/img/like.png"></a>
                     </div>
                     <!-- end player -->
                 </div>
@@ -110,8 +110,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="mt-3 mb-3 text-center">
-                                <iframe v-if="$screen.width <= 480" class="d-inline-block" src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCinemaacc-112261023817711&width=105&layout=button&action=like&size=large&share=false&height=65&appId=528741441632721" width="90" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            <div class="mt-3 mb-3 text-center d-flex justify-content-center">
+                                <a v-if="$screen.width <= 480" class="d-inline-block pr-1" target="_blank" href="https://www.facebook.com/Cinemaacc-112261023817711"><img width="85" alt="Like" src="@/../public/img/like.png"></a>
                                 <iframe v-if="$screen.width <= 480" class="d-inline-block" :src="facebookShareURL" width="105" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
 
@@ -124,7 +124,7 @@
                                 data-ad-client="ca-pub-3890640160453569"
                                 data-ad-slot="3176182629"
                                 data-ad-format="auto"
-                                :data-ad-region="'page-' + randomNumber(0, 200).toString()"
+                                :data-ad-region="'page' + randomNumber(0, 200).toString()"
                                 data-full-width-responsive="true">
                             </Adsense>
                             <!-- content title -->
@@ -252,7 +252,7 @@
                             data-ad-client="ca-pub-3890640160453569"
                             data-ad-slot="5275269330"
                             data-ad-format="auto"
-                            :data-ad-region="'page-' + randomNumber(0, 200).toString()"
+                            :data-ad-region="'page' + randomNumber(0, 200).toString()"
                             data-full-width-responsive="true">
                         </Adsense>
                         <!-- content tabs -->
@@ -334,7 +334,7 @@
                             data-ad-client="ca-pub-3890640160453569"
                             data-ad-slot="4250247688"
                             data-ad-format="auto"
-                            :data-ad-region="'page-' + randomNumber(0, 200).toString()"
+                            :data-ad-region="'page' + randomNumber(0, 200).toString()"
                             data-full-width-responsive="true">
                         </Adsense>
                         <div class="row" v-if="movie">

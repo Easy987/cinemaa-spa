@@ -373,17 +373,16 @@ export default {
                     };
                 } else {
                     this.newMovieData.descriptions = JSON.parse(JSON.stringify(this.movie.descriptions));
-
                 }
 
                 this.newMovieData.links = [];
                 this.newMovieData.videos = [];
 
-                if(Object.prototype.hasOwnProperty.call(this.newMovieData.descriptions, "hu")) {
+                if(!this.newMovieData.descriptions.hasOwnProperty('hu')) {
                     this.newMovieData.descriptions['hu'] = '';
                 }
 
-                if(Object.prototype.hasOwnProperty.call(this.newMovieData.descriptions, "en")) {
+                if(!this.newMovieData.descriptions.hasOwnProperty('en')) {
                     this.newMovieData.descriptions['en'] = '';
                 }
 
